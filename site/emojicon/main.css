@@ -17,30 +17,31 @@
 }
 
 #emojicon #emoji {
-  border: 1px solid slategray;
-  font-size: 2rem;
+  border: 3px solid slategray;
+  font-size: 3rem;
+  padding: 0.5rem;
   width: 150px;
 }
 
 #emojicon #emoji:focus {
+  border-color: var(--violet);
   outline: 0;
-  border: 1px solid var(--violet);
 }
 
 #emojicon #data-url {
   background: darkslategrey;
+  border: 0;
   color: white;
   display: block;
+  height: 5rem;
+  margin: 0;
   padding: 1rem;
   white-space: pre-line;
-  word-break: break-all;
-  border: 0;
   width: calc(100% - 2rem );
-  margin: 0;
-  height: 5rem;
+  word-break: break-all;
 }
 
 #emojicon #data-url:focus {
-  outline: 0;
   background: var(--violet);
+  outline: 0;
 }
