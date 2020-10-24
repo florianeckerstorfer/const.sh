@@ -1,6 +1,6 @@
-# README.md
+# [const.sh](https://const.sh)
 
-> [const.sh](https://const.sh)
+&copy; [Florian Eckerstorfer](https://florian.ec)
 
 ## Commands
 
@@ -8,5 +8,3 @@
 - Build project: `npm run build`
 - Run development server: `npm start`
 - Deploy to S3 bucket and invalidate cache: `npm run deploy` (requires `const.sh` AWS profile)
-
-&copy; [Florian Eckerstorfer](https://florian.ec)
