@@ -15,6 +15,11 @@
   --body-font-size: 1rem;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 body, button, input, textarea {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size);
@@ -30,4 +35,23 @@ a:link, a:active, a:visited {
 
 a:hover {
   text-decoration: none;
+}
+
+footer {
+  background: black;
+  color: white;
+  margin-top: 3rem;
+  padding: .5rem;
+}
+
+.footer p:first-child {
+  margin-top: 0;
+}
+
+.footer p:last-child {
+  margin-bottom: 0;
+}
+
+footer a:link, footer a:active, footer a:visited {
+  color: white;
 }

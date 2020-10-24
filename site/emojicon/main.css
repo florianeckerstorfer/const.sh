@@ -1,4 +1,9 @@
 #emojicon {
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+#emojicon .grid {
   display: grid;
   grid-template-columns: auto auto;
 }
