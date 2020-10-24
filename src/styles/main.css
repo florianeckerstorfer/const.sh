@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Source Code';
+  font-weight: 200 900;
+  font-style: normal;
+  font-stretch: normal;
+  src: url('/fonts/source-code.woff2') format('woff2'),
+    url('/fonts/source-code.woff') format('woff'),
+    url('/fonts/source-code.otf') format('opentype');
+}
+
+:root {
+  --violet: #7b00fd;
+
+  --body-font-family: 'Source Code', 'Courier New', Courier, monospace;
+  --body-font-size: 1rem;
+}
+
+body, button, input, textarea {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+}
+
+h1 {
+  text-align: center;
+}
+
+a:link, a:active, a:visited {
+  color: var(--violet);
+}
+
+a:hover {
+  text-decoration: none;
+}

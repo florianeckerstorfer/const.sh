@@ -1,5 +1,35 @@
 ---
 title: Emojicon
 layout: base
+scripts:
+  - /emojicon/main.js
+styles:
+  - /emojicon/main.css
+favicon:
+  - /emojicon/favicon.png
 ---
 <h1>Emojicon</h1>
+
+<p>Takes an emoji, turns it into an image and shows the Data URL for that emoji image.</p>
+
+<form id="emojicon">
+  <div class="input-field">
+    <label for="emoji">Emoji</label>
+    <input id="emoji" type="text" maxlength="6">
+    <div class="examples">For example: 
+      <a href="#">🚀</a>,
+      <a href="#">🔥</a>,
+      <a href="#">😘</a>,
+      <a href="#">❤️</a>,
+      <a href="#">👩‍🚀</a>.
+    </div>
+  </div>
+  <div class="field">
+    <label>Image</label>
+    <canvas id="canvas" width="128" height="128"></canvas>
+  </div>
+  <div class="result-data-url">
+    <label for="data-url">Data URL for Emoji</label>
+    <textarea id="data-url" readonly></textarea>
+  </div>
+</form>

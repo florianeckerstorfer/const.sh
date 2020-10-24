@@ -1,0 +1,46 @@
+#emojicon {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+#emojicon label {
+  display: block;
+  font-weight: 900;
+}
+
+#emojicon .examples {
+  margin-top: 0.5rem;
+}
+
+#emojicon .result-data-url {
+  grid-column: 1 / span 2;
+}
+
+#emojicon #emoji {
+  border: 1px solid slategray;
+  font-size: 2rem;
+  width: 150px;
+}
+
+#emojicon #emoji:focus {
+  outline: 0;
+  border: 1px solid var(--violet);
+}
+
+#emojicon #data-url {
+  background: darkslategrey;
+  color: white;
+  display: block;
+  padding: 1rem;
+  white-space: pre-line;
+  word-break: break-all;
+  border: 0;
+  width: calc(100% - 2rem );
+  margin: 0;
+  height: 5rem;
+}
+
+#emojicon #data-url:focus {
+  outline: 0;
+  background: var(--violet);
+}
