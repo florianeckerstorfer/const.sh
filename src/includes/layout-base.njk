@@ -17,7 +17,8 @@ title: const.sh
     {{ content | safe }}
     <footer>
       <p>
-        <small><a href="/">const.sh</a>. Made by <a href="https://florian.ec">Florian Eckerstorfer</a> in Vienna, Europe.
+        <small>
+          <a href="/">const.sh</a>. Made by <a href="https://florian.ec">Florian Eckerstorfer</a> in Vienna, Europe.
         </small>
       </p>
     </footer>
@@ -25,5 +26,8 @@ title: const.sh
     {% for src in scripts %}
       <script src="{{ src }}" async></script>
     {% endfor %}
+
+    <script data-goatcounter="https://const.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
   </body>
 </html>
