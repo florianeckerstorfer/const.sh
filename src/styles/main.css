@@ -49,6 +49,12 @@ a:hover {
   text-decoration: none;
 }
 
+.centered-page {
+  margin: 0 auto;
+  max-width: 650px;
+  padding: 0 0.5rem;
+}
+
 .ls-list {
   list-style: none;
   margin: 1rem;
