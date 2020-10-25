@@ -1,6 +1,7 @@
 #emojicon {
   margin: 0 auto;
   max-width: 650px;
+  padding: 0 0.5rem;
 }
 
 #emojicon .grid {
@@ -18,6 +19,7 @@
 }
 
 #emojicon .result-data-url {
+  margin-top: 1rem;
   grid-column: 1 / span 2;
 }
 
@@ -25,7 +27,7 @@
   border: 3px solid slategray;
   font-size: 3rem;
   padding: 0.5rem;
-  width: 150px;
+  width: 128px;
 }
 
 #emojicon #emoji:focus {
@@ -36,13 +38,14 @@
 #emojicon #data-url {
   background: darkslategrey;
   border: 0;
+  border-radius: 0;
   color: white;
   display: block;
   height: 5rem;
   margin: 0;
   padding: 1rem;
   white-space: pre-line;
-  width: calc(100% - 2rem );
+  width: calc(100% - 2rem);
   word-break: break-all;
 }
 
