@@ -9,6 +9,17 @@
     url('/fonts/source-code.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Source Code';
+  font-weight: 200 900;
+  font-display: swap;
+  font-stretch: normal;
+  font-style: italic;
+  src: url('/fonts/source-code-italic.woff2') format('woff2'),
+  url('/fonts/source-code-italic.woff') format('woff'),
+    url('/fonts/source-code-italic.otf') format('opentype');
+}
+
 :root {
   --violet: #7b00fd;
 
@@ -47,6 +58,7 @@ a:hover {
 
 .ls-list li::before {
   display: inline-block;
+  font-style: italic;
   content: "$";
   color: grey;
 }

@@ -4,6 +4,10 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy('site/**/*.css');
   eleventyConfig.addPassthroughCopy('site/**/*.js');
+  eleventyConfig.addPassthroughCopy('site/**/*.png');
+  eleventyConfig.addPassthroughCopy('site/**/*.gif');
+  eleventyConfig.addPassthroughCopy('site/**/*.jpg');
+  eleventyConfig.addPassthroughCopy('site/**/*.jpeg');
   eleventyConfig.addPassthroughCopy({ 'src/styles/**/*.css': 'styles' });
   eleventyConfig.addPassthroughCopy({
     'src/fonts/**/*.otf': 'fonts',
