@@ -13,7 +13,7 @@ describe('emojicon page', () => {
 
     expect(await page.$('canvas')).not.toBeNull();
     expect(await page.textContent('#data-url')).toContain(
-      'data:image/jpg;base64,'
+      'data:image/png;base64,'
     );
   });
 
