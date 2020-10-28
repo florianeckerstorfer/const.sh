@@ -37,6 +37,7 @@
   display: block;
   height: 5rem;
   margin: 0;
+  overflow-y: scroll;
   padding: 1rem;
   white-space: pre-line;
   width: calc(100% - 2rem);

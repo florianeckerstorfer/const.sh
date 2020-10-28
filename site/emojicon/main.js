@@ -1,3 +1,19 @@
+function selectText(node) {
+  if (document.body.createTextRange) {
+    const range = document.body.createTextRange();
+    range.moveToElementText(node);
+    range.select();
+  } else if (window.getSelection) {
+    const selection = window.getSelection();
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    selection.removeAllRanges();
+    selection.addRange(range);
+  } else {
+    console.warn('Could not select text in node: Unsupported browser.');
+  }
+}
+
 function main() {
   const emojicon = document.querySelector('#emojicon');
   const input = emojicon.querySelector('#emoji');
@@ -18,7 +34,7 @@ function main() {
     const positionY = measure.actualBoundingBoxAscent;
     context.fillText(value, positionX, positionY);
 
-    dataUrl.value = canvas.toDataURL('image/png');
+    dataUrl.textContent = canvas.toDataURL('image/png');
   }
 
   emojicon.addEventListener('submit', (event) => {
@@ -40,7 +56,7 @@ function main() {
 
   dataUrl.addEventListener('click', (event) => {
     event.preventDefault();
-    dataUrl.select();
+    selectText(dataUrl);
   });
 }
 
