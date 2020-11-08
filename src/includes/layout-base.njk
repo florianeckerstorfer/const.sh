@@ -1,5 +1,6 @@
 ---
 title: const.sh
+structure: hmf
 ---
 <!doctype html>
 <html lang="en">
@@ -14,14 +15,16 @@ title: const.sh
     {% endfor %}
   </head>
   <body>
-    {{ content | safe }}
-    <footer>
-      <p>
-        <small>
-          <a href="/">const.sh</a>. Made by <a href="https://florian.ec">Florian Eckerstorfer</a> in Vienna, Europe.
+    <div class="structure structure--{{ structure }}">
+      {{ content | safe }}
+      <footer>
+        <p>
+          <small>
+            <a href="/">const.sh</a>. Made by <a href="https://florian.ec">Florian Eckerstorfer</a> in Vienna, Europe.
         </small>
-      </p>
-    </footer>
+        </p>
+      </footer>
+    </div>
 
     {% for src in scripts %}
       <script src="{{ src }}" async></script>

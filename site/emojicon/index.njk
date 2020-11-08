@@ -11,30 +11,33 @@ styles:
 favicon:
   - /emojicon/favicon.png
 ---
-<form id="emojicon" class="centered-page">
-  <h1>Emojicon</h1>
+<header class="header main">
+  <h1>{{ title }}</1>
+</header>
+<main class="main">
+  <form id="emojicon" class="centered-page">
+    <p>Takes an emoji, turns it into an image and shows the Data URL for that emoji image.</p>
 
-  <p>Takes an emoji, turns it into an image and shows the Data URL for that emoji image.</p>
-
-  <div class="grid">
-    <div class="input-field">
-      <label for="emoji">Enter Emoji</label>
-      <input id="emoji" type="text" maxlength="6">
-      <div class="examples">For example: 
+    <div class="grid">
+      <div class="input-field">
+        <label for="emoji">Enter Emoji</label>
+        <input id="emoji" type="text" maxlength="6">
+        <div class="examples">For example: 
       <a href="#">🚀</a>,
       <a href="#">🔥</a>,
       <a href="#">😘</a>,
       <a href="#">❤️</a>,
       <a href="#">👩‍🚀</a>.
     </div>
+      </div>
+      <div class="field">
+        <label>Image</label>
+        <canvas id="canvas" width="128" height="128"></canvas>
+      </div>
+      <div class="result-data-url">
+        <label for="data-url">Data URL for Emoji</label>
+        <div id="data-url" readonly></div>
+      </div>
     </div>
-    <div class="field">
-      <label>Image</label>
-      <canvas id="canvas" width="128" height="128"></canvas>
-    </div>
-    <div class="result-data-url">
-      <label for="data-url">Data URL for Emoji</label>
-      <div id="data-url" readonly></div>
-    </div>
-  </div>
-</form>
+  </form>
+</main>

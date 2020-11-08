@@ -1,0 +1,72 @@
+#chart-7ti {
+  width: 100%;
+  position: relative;
+}
+
+#chart-7ti text {
+  font-family: var(--body-font-family);
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 15ch;
+  padding: 1ch;
+  font-size: 0.75rem;
+  border: 2px solid white;
+  pointer-events: none;
+  color: white;
+}
+
+.overview-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.overview-table th,
+.overview-table td {
+  border-right: 1px solid #c0c0c0;
+  padding: 0.2rem;
+}
+
+.overview-table td {
+  text-align: right;
+  width: 8ch;
+}
+
+.overview-table th {
+  border-top: 1px solid #c0c0c0;
+  text-align: center;
+}
+
+.overview-table th:first-child,
+.overview-table td:first-child {
+  border-left: 1px solid #c0c0c0;
+  width: 20ch;
+}
+
+.overview-table td:first-child {
+  text-align: left;
+}
+
+.overview-table tr:last-child td {
+  border-bottom: 1px solid #c0c0c0;
+}
+
+.overview-table tr:nth-child(odd) td {
+  background: #efefef;
+}
+
+.overview-table td span {
+  display: inline-block;
+  font-size: 0.75rem;
+  width: 8ch;
+}
+
+.overview-table td span.plus {
+  color: red;
+}
+
+.overview-table td span.minus {
+  color: green;
+}

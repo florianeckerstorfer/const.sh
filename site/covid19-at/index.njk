@@ -1,0 +1,124 @@
+---
+title: COVID19 Data Austria
+layout: base
+structure: hmf
+version: 1.0.0
+created_at: 2020-10-24T15:30:07.645Z
+updated_at: 2020-10-24T15:30:07.645Z
+scripts:
+  - /covid19-at/main.js
+styles:
+  - /covid19-at/main.css
+---
+<header class="header main">
+  <h1>COVID19 Dashboard
+    <div class="tagline">&Ouml;sterreich</div>
+  </h1>
+</header>
+<main class="main">
+  <section>
+    <h2 id="uebersicht">
+      <a href="#uebersicht">&Uuml;bersicht</a>
+    </h2>
+    <table class="overview-table">
+      <thead>
+        <tr>
+          <th>7 Tage Inzidenz</th>
+          <th>Heute</th>
+          <th>Gestern</th>
+          <th>Vor 7 Tagen</th>
+          <th>Vor 30 Tagen</th>
+      </thead>
+      <tbody>
+        <tr data-bundesland="10">
+          <td>&Ouml;sterreich</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="1">
+          <td>Burgenland</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="2">
+          <td>K&auml;rnten</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="3">
+          <td>Nieder&ouml;sterreich</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="4">
+          <td>Ober&ouml;sterreich</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="5">
+          <td>Salzburg</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="6">
+          <td>Steiermark</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="7">
+          <td>Tirol</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="8">
+          <td>Vorarlberg</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+        <tr data-bundesland="9">
+          <td>Wien</td>
+          <td data-col="today"></td>
+          <td data-col="yesterday"></td>
+          <td data-col="week"></td>
+          <td data-col="month"></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <h2 id="sieben-tage-inzidenz">
+      <a href="#sieben-tage-inzidenz">7 Tage Inzidenz</a>
+    </h2>
+    <select id="select-7ti">
+      <option value="10">&Ouml;sterreich</option>
+      <option value="1">Burgenland</option>
+      <option value="2">K&auml;rnten</option>
+      <option value="3">Nieder&ouml;sterreich</option>
+      <option value="4">Ober&ouml;sterreich</option>
+      <option value="5">Salzburg</option>
+      <option value="6">Steiermark</option>
+      <option value="7">Tirol</option>
+      <option value="8">Vorarlberg</option>
+      <option value="9">Wien</option>
+    </select>
+    <div id="chart-7ti"></div>
+  </section>
+</main>
