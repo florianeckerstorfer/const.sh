@@ -7,8 +7,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('site/**/*.png');
   eleventyConfig.addPassthroughCopy('site/**/*.gif');
   eleventyConfig.addPassthroughCopy('site/**/*.jpg');
-  eleventyConfig.addPassthroughCopy('site/**/*.jpeg');  
-  eleventyConfig.addPassthroughCopy('site/**/*.csv');  
+  eleventyConfig.addPassthroughCopy('site/**/*.jpeg');
+  eleventyConfig.addPassthroughCopy('site/**/*.csv');
   eleventyConfig.addPassthroughCopy({ 'src/styles/**/*.css': 'styles' });
   eleventyConfig.addPassthroughCopy({
     'src/fonts/**/*.otf': 'fonts',
@@ -20,6 +20,7 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: 'site',
+      data: 'data',
       includes: '../src/includes',
       output: 'dist',
     },

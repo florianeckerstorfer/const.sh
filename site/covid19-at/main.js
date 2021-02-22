@@ -169,27 +169,25 @@ function renderChart({ data, width, height, margin }) {
 async function readData() {
   const dateParse = d3.timeParse('%d.%m.%Y %H:%M:%S');
 
-  const file = await fetch('/covid19-at/CovidFaelle_Timeline.csv');
+  const file = await fetch('/covid19-at/timeline.csv');
 
-  return (
-    d3
-      .dsvFormat(';')
-      .parse(await file.text(), (row) => ({
-        AnzEinwohner: parseInt(row.AnzEinwohner, 10),
-        AnzahlFaelle: parseInt(row.AnzahlFaelle, 10),
-        AnzahlFaelle7Tage: parseInt(row.AnzahlFaelle7Tage, 10),
-        AnzahlFaelleSum: parseInt(row.AnzahlFaelleSum, 10),
-        AnzahlGeheiltSum: parseInt(row.AnzahlGeheiltSum, 10),
-        AnzahlGeheiltTaeglich: parseInt(row.AnzahlGeheiltTaeglich, 10),
-        AnzahlTotSum: parseInt(row.AnzahlGeheiltTaeglich, 10),
-        AnzahlTotTaeglich: parseInt(row.AnzahlTotTaeglich, 10),
-        Bundesland: row.Bundesland,
-        BundeslandID: parseInt(row.BundeslandID, 10),
-        SiebenTageInzidenzFaelle: parseInt(row.SiebenTageInzidenzFaelle, 10),
-        Time: dateParse(row.Time),
-      }))
-      .sort((a, b) => a.Time - b.Time)
-  );
+  return d3
+    .dsvFormat(';')
+    .parse(await file.text(), (row) => ({
+      AnzEinwohner: parseInt(row.AnzEinwohner, 10),
+      AnzahlFaelle: parseInt(row.AnzahlFaelle, 10),
+      AnzahlFaelle7Tage: parseInt(row.AnzahlFaelle7Tage, 10),
+      AnzahlFaelleSum: parseInt(row.AnzahlFaelleSum, 10),
+      AnzahlGeheiltSum: parseInt(row.AnzahlGeheiltSum, 10),
+      AnzahlGeheiltTaeglich: parseInt(row.AnzahlGeheiltTaeglich, 10),
+      AnzahlTotSum: parseInt(row.AnzahlGeheiltTaeglich, 10),
+      AnzahlTotTaeglich: parseInt(row.AnzahlTotTaeglich, 10),
+      Bundesland: row.Bundesland,
+      BundeslandID: parseInt(row.BundeslandID, 10),
+      SiebenTageInzidenzFaelle: parseInt(row.SiebenTageInzidenzFaelle, 10),
+      Time: dateParse(row.Time),
+    }))
+    .sort((a, b) => a.Time - b.Time);
 }
 
 function calcDiffPercentage(value1, value2) {
