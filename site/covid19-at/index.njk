@@ -10,96 +10,60 @@ scripts:
 styles:
   - /covid19-at/main.css
 ---
-<header class="header main">
-  <h1>COVID19 Dashboard
-    <div class="tagline">&Ouml;sterreich</div>
-  </h1>
+{% set defaultProvince = 10 %}
+{% set stats = [ 
+  { id: 'sevenDayIncidence', name: '7 Tage Inzidenz' },
+  { id: 'cases', name: 'Fälle' },
+  { id: 'deaths', name: 'Todesfälle' },
+  { id: 'recoveries', name: 'Genesene' }
+] %}
+{% set provinces = [
+  { id: 10, name: 'Österreich' },
+  { id: 1, name: 'Burgenland' },
+  { id: 2, name: 'Kärnten' },
+  { id: 3, name: 'Niederösterreich' },
+  { id: 4, name: 'Oberösterreich' },
+  { id: 5, name: 'Salzburg' },
+  { id: 6, name: 'Steiermark' },
+  { id: 7, name: 'Tirol' },
+  { id: 8, name: 'Vorarlberg' },
+  { id: 9, name: 'Wien' }
+] %}
+<header class="header header--covid19-at main">
+  <h1>COVID19 in <br>Österreich</h1>
 </header>
 <main class="main">
   <section>
-    <h2 id="uebersicht">
-      <a href="#uebersicht">&Uuml;bersicht</a>
-    </h2>
     <table class="overview-table">
       <thead>
         <tr>
-          <th>7 Tage Inzidenz</th>
+          <th>
+            <select id="select-7ti">
+              {% for province in provinces %}
+                <option value="{{ province.id }}">{{ province.name }}</option>
+              {% endfor %}
+            </select>
+          </th>
           <th>Heute</th>
           <th>Gestern</th>
           <th>Vor 7 Tagen</th>
           <th>Vor 30 Tagen</th>
       </thead>
       <tbody>
-        <tr data-bundesland="10">
-          <td>&Ouml;sterreich</td>
+        {% for province in provinces %}
+          {% for stat in stats %}
+          <tr 
+            data-stat="{{ stat.id }}" 
+            data-bundesland="{{ province.id }}" 
+            class="data-row {{ "" if province.id === defaultProvince else "hide" }}">
+          <td class="row-header">{{ stat.name }}</td>
           <td data-col="today"></td>
           <td data-col="yesterday"></td>
           <td data-col="week"></td>
           <td data-col="month"></td>
         </tr>
-        <tr data-bundesland="1">
-          <td>Burgenland</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="2">
-          <td>K&auml;rnten</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="3">
-          <td>Nieder&ouml;sterreich</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="4">
-          <td>Ober&ouml;sterreich</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="5">
-          <td>Salzburg</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="6">
-          <td>Steiermark</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="7">
-          <td>Tirol</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="8">
-          <td>Vorarlberg</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        <tr data-bundesland="9">
-          <td>Wien</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
+        {% endfor %}
+        {% endfor %}
       </tbody>
     </table>
   </section>
@@ -107,18 +71,6 @@ styles:
     <h2 id="sieben-tage-inzidenz">
       <a href="#sieben-tage-inzidenz">7 Tage Inzidenz</a>
     </h2>
-    <select id="select-7ti">
-      <option value="10">&Ouml;sterreich</option>
-      <option value="1">Burgenland</option>
-      <option value="2">K&auml;rnten</option>
-      <option value="3">Nieder&ouml;sterreich</option>
-      <option value="4">Ober&ouml;sterreich</option>
-      <option value="5">Salzburg</option>
-      <option value="6">Steiermark</option>
-      <option value="7">Tirol</option>
-      <option value="8">Vorarlberg</option>
-      <option value="9">Wien</option>
-    </select>
     <div id="chart-7ti"></div>
   </section>
 </main>

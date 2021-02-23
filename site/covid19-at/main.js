@@ -190,13 +190,15 @@ async function readData() {
     .sort((a, b) => a.Time - b.Time);
 }
 
-function calcDiffPercentage(value1, value2) {
+function calcDiffPercentage(value1, value2, reverseColor) {
+  reverseColor = reverseColor || false;
   const diff = value1 - value2;
-  const percent = Math.round((100 / value2) * diff);
+  const percent = Math.round((100 / (value2 || 1)) * diff);
   const symbol = percent > 0 ? '+' : percent === 0 ? '=' : '';
+  const classPercent = reverseColor ? percent * -1 : percent;
   return [
     `${symbol}${percent}`,
-    percent > 0 ? 'plus' : percent < 0 ? 'minus' : '',
+    classPercent > 0 ? 'plus' : classPercent < 0 ? 'minus' : '',
   ];
 }
 
@@ -241,26 +243,122 @@ function overviewTable(data) {
       rowToday.SiebenTageInzidenzFaelle,
       rowWeekBefore.SiebenTageInzidenzFaelle
     );
-
     const [sevenPercMonthBefore, sevenClassMonthBefore] = calcDiffPercentage(
       rowToday.SiebenTageInzidenzFaelle,
       rowMonthBefore.SiebenTageInzidenzFaelle
     );
 
-    const rowElem = document.querySelector(
-      `[data-bundesland="${rowToday.BundeslandID}"]`
+    const [casesPercDayBefore, casesClassDayBefore] = calcDiffPercentage(
+      rowToday.AnzahlFaelle,
+      rowDayBefore.AnzahlFaelle
     );
-    rowElem.querySelector('[data-col="today"]').innerHTML =
-      rowToday.SiebenTageInzidenzFaelle;
-    rowElem.querySelector(
+    const [casesPercWeekBefore, casesClassWeekBefore] = calcDiffPercentage(
+      rowToday.AnzahlFaelle,
+      rowWeekBefore.AnzahlFaelle
+    );
+    const [casesPercMonthBefore, casesClassMonthBefore] = calcDiffPercentage(
+      rowToday.AnzahlFaelle,
+      rowMonthBefore.AnzahlFaelle
+    );
+
+    const [deathsPercDayBefore, deathsClassDayBefore] = calcDiffPercentage(
+      rowToday.AnzahlTotTaeglich,
+      rowDayBefore.AnzahlTotTaeglich
+    );
+    const [deathsPercWeekBefore, deathsClassWeekBefore] = calcDiffPercentage(
+      rowToday.AnzahlTotTaeglich,
+      rowWeekBefore.AnzahlTotTaeglich
+    );
+    const [deathsPercMonthBefore, deathsClassMonthBefore] = calcDiffPercentage(
+      rowToday.AnzahlTotTaeglich,
+      rowMonthBefore.AnzahlTotTaeglich
+    );
+
+    const [
+      recoveriesPercDayBefore,
+      recoveriesClassDayBefore,
+    ] = calcDiffPercentage(
+      rowToday.AnzahlTotTaeglich,
+      rowDayBefore.AnzahlTotTaeglich,
+      true
+    );
+    const [
+      recoveriesPercWeekBefore,
+      recoveriesClassWeekBefore,
+    ] = calcDiffPercentage(
+      rowToday.AnzahlTotTaeglich,
+      rowWeekBefore.AnzahlTotTaeglich,
+      true
+    );
+    const [
+      recoveriesPercMonthBefore,
+      recoveriesClassMonthBefore,
+    ] = calcDiffPercentage(
+      rowToday.AnzahlTotTaeglich,
+      rowMonthBefore.AnzahlTotTaeglich,
+      true
+    );
+
+    const rowElemSeven = document.querySelector(
+      `[data-stat="sevenDayIncidence"][data-bundesland="${rowToday.BundeslandID}"]`
+    );
+    rowElemSeven.querySelector(
+      '[data-col="today"]'
+    ).innerHTML = `${rowToday.SiebenTageInzidenzFaelle}`;
+    rowElemSeven.querySelector(
       '[data-col="yesterday"]'
     ).innerHTML = `${rowDayBefore.SiebenTageInzidenzFaelle} <span class="${sevenClassDayDefore}">(<em>${sevenPercDayBefore}%</em>)</span>`;
-    rowElem.querySelector(
+    rowElemSeven.querySelector(
       '[data-col="week"]'
     ).innerHTML = `${rowWeekBefore.SiebenTageInzidenzFaelle} <span class="${sevenClassWeekBefore}">(<em>${sevenPercWeekBefore}%)</em></span>`;
-    rowElem.querySelector(
+    rowElemSeven.querySelector(
       '[data-col="month"]'
     ).innerHTML = `${rowMonthBefore.SiebenTageInzidenzFaelle} <span class="${sevenClassMonthBefore}">(<em>${sevenPercMonthBefore}%</em>)</span>`;
+
+    const rowElemCases = document.querySelector(
+      `[data-stat="cases"][data-bundesland="${rowToday.BundeslandID}"]`
+    );
+    rowElemCases.querySelector('[data-col="today"]').innerHTML =
+      rowToday.AnzahlFaelle;
+    rowElemCases.querySelector(
+      '[data-col="yesterday"]'
+    ).innerHTML = `${rowDayBefore.AnzahlFaelle} <span class="${casesClassDayBefore}">(<em>${casesPercDayBefore}%</em>)</span>`;
+    rowElemCases.querySelector(
+      '[data-col="week"]'
+    ).innerHTML = `${rowWeekBefore.AnzahlFaelle} <span class="${casesClassWeekBefore}">(<em>${casesPercWeekBefore}%</em>)</span>`;
+    rowElemCases.querySelector(
+      '[data-col="month"]'
+    ).innerHTML = `${rowMonthBefore.AnzahlFaelle} <span class="${casesClassMonthBefore}">(<em>${casesPercMonthBefore}%</em>)</span>`;
+
+    const rowElemDeaths = document.querySelector(
+      `[data-stat="deaths"][data-bundesland="${rowToday.BundeslandID}"]`
+    );
+    rowElemDeaths.querySelector('[data-col="today"]').innerHTML =
+      rowToday.AnzahlTotTaeglich;
+    rowElemDeaths.querySelector(
+      '[data-col="yesterday"]'
+    ).innerHTML = `${rowDayBefore.AnzahlTotTaeglich} <span class="${deathsClassDayBefore}">(<em>${deathsPercDayBefore}%</em>)</span>`;
+    rowElemDeaths.querySelector(
+      '[data-col="week"]'
+    ).innerHTML = `${rowWeekBefore.AnzahlTotTaeglich} <span class="${deathsClassWeekBefore}">(<em>${deathsPercWeekBefore}%</em>)</span>`;
+    rowElemDeaths.querySelector(
+      '[data-col="month"]'
+    ).innerHTML = `${rowMonthBefore.AnzahlTotTaeglich} <span class="${deathsClassMonthBefore}">(<em>${deathsPercMonthBefore}%</em>)</span>`;
+
+    const rowElemRecoveries = document.querySelector(
+      `[data-stat="recoveries"][data-bundesland="${rowToday.BundeslandID}"]`
+    );
+    rowElemRecoveries.querySelector('[data-col="today"]').innerHTML =
+      rowToday.AnzahlGeheiltTaeglich;
+    rowElemRecoveries.querySelector(
+      '[data-col="yesterday"]'
+    ).innerHTML = `${rowDayBefore.AnzahlGeheiltTaeglich} <span class="${recoveriesClassDayBefore}">(<em>${recoveriesPercDayBefore}%</em>)</span>`;
+    rowElemRecoveries.querySelector(
+      '[data-col="week"]'
+    ).innerHTML = `${rowWeekBefore.AnzahlGeheiltTaeglich} <span class="${recoveriesClassWeekBefore}">(<em>${recoveriesPercWeekBefore}%</em>)</span>`;
+    rowElemRecoveries.querySelector(
+      '[data-col="month"]'
+    ).innerHTML = `${rowMonthBefore.AnzahlGeheiltTaeglich} <span class="${recoveriesClassMonthBefore}">(<em>${recoveriesPercMonthBefore}%</em>)</span>`;
   });
 }
 
@@ -289,6 +387,17 @@ async function main() {
 
   selectElem.addEventListener('change', (event) => {
     const bundeslandID = parseInt(event.target.value, 10);
+    document.querySelectorAll('.overview-table .data-row').forEach((elem) => {
+      const elemBundeslandID = parseInt(
+        elem.getAttribute('data-bundesland'),
+        10
+      );
+      if (elemBundeslandID === bundeslandID) {
+        elem.classList.remove('hide');
+      } else {
+        elem.classList.add('hide');
+      }
+    });
     chartElem.removeChild(node);
     const filteredData = data.filter(filterBundesland(bundeslandID));
     node = renderChart({

@@ -1,3 +1,7 @@
+.header--covid19-at h1 {
+  text-align: left;
+}
+
 #chart-7ti {
   width: 100%;
   position: relative;
@@ -23,34 +27,31 @@ div.tooltip {
   width: 100%;
 }
 
+.overview-table tr.hide {
+  display: none;
+}
+
 .overview-table th,
 .overview-table td {
-  border-right: 1px solid #c0c0c0;
   padding: 0.2rem;
 }
 
 .overview-table td {
+  vertical-align: top;
   text-align: right;
   width: 8ch;
 }
 
 .overview-table th {
-  border-top: 1px solid #c0c0c0;
   text-align: center;
 }
 
 .overview-table th:first-child,
 .overview-table td:first-child {
-  border-left: 1px solid #c0c0c0;
   width: 20ch;
 }
 
-.overview-table td:first-child {
-  text-align: left;
-}
-
 .overview-table tr:last-child td {
-  border-bottom: 1px solid #c0c0c0;
 }
 
 .overview-table tr:nth-child(odd) td {
@@ -58,9 +59,9 @@ div.tooltip {
 }
 
 .overview-table td span {
-  display: inline-block;
+  color: #555;
+  display: block;
   font-size: 0.75rem;
-  width: 8ch;
 }
 
 .overview-table td span.plus {
@@ -69,4 +70,13 @@ div.tooltip {
 
 .overview-table td span.minus {
   color: green;
+}
+
+.overview-table .row-header {
+  font-family: var(--headline-font-family);
+  font-size: 1.2rem;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0.3rem;
 }
