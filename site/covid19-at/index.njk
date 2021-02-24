@@ -10,24 +10,12 @@ scripts:
 styles:
   - /covid19-at/main.css
 ---
-{% set defaultProvince = 10 %}
+{% set defaultProvince = "10" %}
 {% set stats = [ 
-  { id: 'sevenDayIncidence', name: '7 Tage Inzidenz' },
-  { id: 'cases', name: 'Fälle' },
-  { id: 'deaths', name: 'Todesfälle' },
-  { id: 'recoveries', name: 'Genesene' }
-] %}
-{% set provinces = [
-  { id: 10, name: 'Österreich' },
-  { id: 1, name: 'Burgenland' },
-  { id: 2, name: 'Kärnten' },
-  { id: 3, name: 'Niederösterreich' },
-  { id: 4, name: 'Oberösterreich' },
-  { id: 5, name: 'Salzburg' },
-  { id: 6, name: 'Steiermark' },
-  { id: 7, name: 'Tirol' },
-  { id: 8, name: 'Vorarlberg' },
-  { id: 9, name: 'Wien' }
+  { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz' },
+  { id: 'AnzahlFaelle', name: 'Fälle' },
+  { id: 'AnzahlTotTaeglich', name: 'Todesfälle' },
+  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene' }
 ] %}
 <header class="header header--covid19-at main">
   <h1>COVID19 in <br>Österreich</h1>
@@ -40,29 +28,29 @@ styles:
           <th>
             <select id="select-7ti">
               {% for province in provinces %}
-                <option value="{{ province.id }}">{{ province.name }}</option>
+                <option value="{{ province.BundeslandID }}" {{ "selected" if province.BundeslandID === defaultProvince }}>
+                  {{ province.Bundesland }}
+                </option>
               {% endfor %}
             </select>
           </th>
-          <th>Heute</th>
           <th>Gestern</th>
-          <th>Vor 7 Tagen</th>
-          <th>Vor 30 Tagen</th>
+          <th>Vorgestern</th>
+          <th>Vorige Woche</th>
+          <th>Voriges Monat</th>
       </thead>
       <tbody>
         {% for province in provinces %}
           {% for stat in stats %}
-          <tr 
-            data-stat="{{ stat.id }}" 
-            data-bundesland="{{ province.id }}" 
-            class="data-row {{ "" if province.id === defaultProvince else "hide" }}">
-          <td class="row-header">{{ stat.name }}</td>
-          <td data-col="today"></td>
-          <td data-col="yesterday"></td>
-          <td data-col="week"></td>
-          <td data-col="month"></td>
-        </tr>
-        {% endfor %}
+          {% set row = timeline | covid19AtByProvince(province.BundeslandID) %}
+          <tr  class="data-row {{ "hide" if province.BundeslandID !== defaultProvince }}">
+            <td class="row-header">{{ stat.name }}</td>
+            <td>{{ row.yesterday[stat.id] | round }}</td>
+            <td>{{ row.beforeYesterday[stat.id] | round }}</td>
+            <td>{{ row.lastWeek[stat.id] | round }}</td>
+            <td>{{ row.lastMonth[stat.id] | round }}</td>
+          </tr>
+          {% endfor %}
         {% endfor %}
       </tbody>
     </table>

@@ -375,7 +375,7 @@ async function main() {
 
   const data = await readData();
 
-  overviewTable(data);
+  // overviewTable(data);
 
   let node = renderChart({
     data: data.filter(filterBundesland(10)),

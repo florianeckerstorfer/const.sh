@@ -1,3 +1,7 @@
+const dayjs = require('dayjs');
+const covid19AtFilters = require('./src/filters/covid19AtFilters');
+const mathFilters = require('./src/filters/mathFilters');
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addLayoutAlias('base', 'layout-base.njk');
   eleventyConfig.addLayoutAlias('generic', 'layout-generic.njk');
@@ -16,6 +20,13 @@ module.exports = function (eleventyConfig) {
     'src/fonts/**/*.woff': 'fonts',
     'src/fonts/**/*.woff2': 'fonts',
   });
+
+  eleventyConfig.addFilter(
+    'covid19AtByProvince',
+    covid19AtFilters.covid19AtByProvince
+  );
+
+  eleventyConfig.addFilter('round', mathFilters.round);
 
   return {
     dir: {
