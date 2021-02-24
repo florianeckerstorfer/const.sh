@@ -15,7 +15,7 @@ function filterTimeline(timeline) {
   };
 }
 
-function covid19AtByProvince(timeline, province) {
+function covid19AtRowByProvince(timeline, province) {
   const date = dayjs();
   const filter = filterTimeline(timeline).province(province);
   return {
@@ -27,5 +27,5 @@ function covid19AtByProvince(timeline, province) {
 }
 
 module.exports = {
-  covid19AtByProvince,
+  covid19AtRowByProvince,
 };

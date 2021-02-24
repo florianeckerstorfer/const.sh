@@ -42,7 +42,7 @@ styles:
       <tbody>
         {% for province in provinces %}
           {% for stat in stats %}
-          {% set row = timeline | covid19AtByProvince(province.BundeslandID) %}
+          {% set row = timeline | covid19AtRowByProvince(province.BundeslandID) %}
           <tr  class="data-row {{ "hide" if province.BundeslandID !== defaultProvince }}">
             <td class="row-header">{{ stat.name }}</td>
             <td>{{ row.yesterday[stat.id] | round }}</td>

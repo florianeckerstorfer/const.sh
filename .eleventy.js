@@ -22,8 +22,8 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter(
-    'covid19AtByProvince',
-    covid19AtFilters.covid19AtByProvince
+    'covid19AtRowByProvince',
+    covid19AtFilters.covid19AtRowByProvince
   );
 
   eleventyConfig.addFilter('round', mathFilters.round);
