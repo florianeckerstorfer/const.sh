@@ -1,5 +1,5 @@
 ---
-title: COVID19 Data Austria
+title: COVID19 in Österreich
 layout: base
 structure: hmf
 version: 1.0.0
@@ -18,47 +18,39 @@ styles:
   { id: 'AnzahlGeheiltTaeglich', name: 'Genesene' }
 ] %}
 <header class="header header--covid19-at main">
-  <h1>COVID19 in <br>Österreich</h1>
+  <h1><strong>COVID19</strong> in <br>Österreich</h1>
 </header>
-<main class="main">
-  <section>
-    <table class="overview-table">
-      <thead>
-        <tr>
-          <th>
-            <select id="select-7ti">
-              {% for province in provinces %}
-                <option value="{{ province.BundeslandID }}" {{ "selected" if province.BundeslandID === defaultProvince }}>
-                  {{ province.Bundesland }}
-                </option>
-              {% endfor %}
-            </select>
-          </th>
-          <th>Gestern</th>
-          <th>Vorgestern</th>
-          <th>Vorige Woche</th>
-          <th>Voriges Monat</th>
-      </thead>
-      <tbody>
-        {% for province in provinces %}
-          {% for stat in stats %}
-          {% set row = timeline | covid19AtRowByProvince(province.BundeslandID) %}
-          <tr  class="data-row {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            <td class="row-header">{{ stat.name }}</td>
-            <td>{{ row.yesterday[stat.id] | round }}</td>
-            <td>{{ row.beforeYesterday[stat.id] | round }}</td>
-            <td>{{ row.lastWeek[stat.id] | round }}</td>
-            <td>{{ row.lastMonth[stat.id] | round }}</td>
-          </tr>
-          {% endfor %}
+<main class="main main--covid19-at">
+  <table class="overview-table">
+    <thead>
+      <tr>
+        <th>
+          <select id="select-7ti">
+            {% for province in provinces %}
+              <option value="{{ province.BundeslandID }}" {{ "selected" if province.BundeslandID === defaultProvince }}>
+                {{ province.Bundesland }}
+              </option>
+            {% endfor %}
+          </select>
+        </th>
+        <th>Gestern<br><span class="date">{{ dates.yesterday }}</span></th>
+        <th>Vorgestern<br><span class="date">{{ dates.beforeYesterday }}</span></th>
+        <th>Vorige Woche<br><span class="date">{{ dates.lastWeek }}</span></th>
+        <th>Voriges Monat<br><span class="date">{{ dates.lastMonth }}</span></th>
+    </thead>
+    <tbody>
+      {% for province in provinces %}
+        {% for stat in stats %}
+        {% set row = timeline | covid19AtRowByProvince(province.BundeslandID) %}
+        <tr data-bundesland="{{ province.BundeslandID }}" class="data-row {{ "hide" if province.BundeslandID !== defaultProvince }}">
+          <td class="row-header">{{ stat.name }}</td>
+          <td>{{ row.yesterday[stat.id] | round }}</td>
+          <td>{{ row.beforeYesterday[stat.id] | round }}</td>
+          <td>{{ row.lastWeek[stat.id] | round }}</td>
+          <td>{{ row.lastMonth[stat.id] | round }}</td>
+        </tr>
         {% endfor %}
-      </tbody>
-    </table>
-  </section>
-  <section>
-    <h2 id="sieben-tage-inzidenz">
-      <a href="#sieben-tage-inzidenz">7 Tage Inzidenz</a>
-    </h2>
-    <div id="chart-7ti"></div>
-  </section>
+      {% endfor %}
+    </tbody>
+  </table>
 </main>

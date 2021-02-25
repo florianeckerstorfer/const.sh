@@ -1,25 +1,18 @@
 .header--covid19-at h1 {
-  text-align: left;
-}
-
-#chart-7ti {
-  width: 100%;
-  position: relative;
-}
-
-#chart-7ti text {
-  font-family: var(--body-font-family);
-}
-
-div.tooltip {
-  position: absolute;
+  font-family: Bould;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
   text-align: center;
-  width: 15ch;
-  padding: 1ch;
-  font-size: 0.75rem;
-  border: 2px solid white;
-  pointer-events: none;
-  color: white;
+}
+
+.header--covid19-at h1 strong {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.main--covid19-at {
+  font-family: Bould;
 }
 
 .overview-table {
@@ -43,12 +36,19 @@ div.tooltip {
 }
 
 .overview-table th {
-  text-align: center;
+  font-weight: 300;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.overview-table th .date {
+  font-size: 0.8rem;
 }
 
 .overview-table th:first-child,
 .overview-table td:first-child {
-  width: 20ch;
+  text-align: left;
+  width: 10ch;
 }
 
 .overview-table tr:last-child td {

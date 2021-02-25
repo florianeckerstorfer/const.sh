@@ -15,6 +15,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('site/**/*.csv');
   eleventyConfig.addPassthroughCopy({ 'src/styles/**/*.css': 'styles' });
   eleventyConfig.addPassthroughCopy({
+    'src/fonts/**/*.eot': 'fonts',
     'src/fonts/**/*.otf': 'fonts',
     'src/fonts/**/*.ttf': 'fonts',
     'src/fonts/**/*.woff': 'fonts',
