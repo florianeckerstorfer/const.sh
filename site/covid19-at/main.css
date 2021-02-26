@@ -1,6 +1,5 @@
 .header--covid19-at h1 {
   font-family: Bould;
-  font-style: italic;
   font-weight: 400;
   line-height: 1;
   text-align: center;
@@ -51,29 +50,30 @@
   width: 10ch;
 }
 
-.overview-table tr:last-child td {
+.overview-table td:nth-child(2) {
+  font-size: 1.2rem;
+  vertical-align: middle;
 }
 
 .overview-table tr:nth-child(odd) td {
   background: #efefef;
 }
 
-.overview-table td span {
+.overview-table td .compare {
   color: #555;
   display: block;
   font-size: 0.75rem;
 }
 
-.overview-table td span.plus {
+.overview-table td .plus {
   color: red;
 }
 
-.overview-table td span.minus {
+.overview-table td .minus {
   color: green;
 }
 
 .overview-table .row-header {
-  font-family: var(--headline-font-family);
   font-size: 1.2rem;
   font-weight: bold;
   vertical-align: middle;

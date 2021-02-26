@@ -12,10 +12,10 @@ styles:
 ---
 {% set defaultProvince = "10" %}
 {% set stats = [ 
-  { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz' },
-  { id: 'AnzahlFaelle', name: 'Fälle' },
-  { id: 'AnzahlTotTaeglich', name: 'Todesfälle' },
-  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene' }
+  { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz', higherIsBetter: false },
+  { id: 'AnzahlFaelle', name: 'Fälle', higherIsBetter: false },
+  { id: 'AnzahlTotTaeglich', name: 'Todesfälle', higherIsBetter: false },
+  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene', higherIsBetter: true }
 ] %}
 <header class="header header--covid19-at main">
   <h1><strong>COVID19</strong> in <br>Österreich</h1>
@@ -45,9 +45,18 @@ styles:
         <tr data-bundesland="{{ province.BundeslandID }}" class="data-row {{ "hide" if province.BundeslandID !== defaultProvince }}">
           <td class="row-header">{{ stat.name }}</td>
           <td>{{ row.yesterday[stat.id] | round }}</td>
-          <td>{{ row.beforeYesterday[stat.id] | round }}</td>
-          <td>{{ row.lastWeek[stat.id] | round }}</td>
-          <td>{{ row.lastMonth[stat.id] | round }}</td>
+          <td>
+            {{ row.beforeYesterday[stat.id] | round }}
+            {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.beforeYesterday[stat.id], stat.higherIsBetter %}
+          </td>
+          <td>
+            {{ row.lastWeek[stat.id] | round }}
+            {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastWeek[stat.id], stat.higherIsBetter %}
+          </td>
+          <td>
+            {{ row.lastMonth[stat.id] | round }}
+            {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastMonth[stat.id], stat.higherIsBetter %}
+          </td>
         </tr>
         {% endfor %}
       {% endfor %}

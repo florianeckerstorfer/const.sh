@@ -1,6 +1,7 @@
 const dayjs = require('dayjs');
 const covid19AtFilters = require('./src/filters/covid19AtFilters');
 const mathFilters = require('./src/filters/mathFilters');
+const covid19AtShortcodes = require('./src/shortcodes/covid19AtShortcodes');
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addLayoutAlias('base', 'layout-base.njk');
@@ -25,6 +26,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter(
     'covid19AtRowByProvince',
     covid19AtFilters.covid19AtRowByProvince
+  );
+  eleventyConfig.addShortcode(
+    'covid19AtDiffBetweenValues',
+    covid19AtShortcodes.covid19AtDiffBetweenValues
   );
 
   eleventyConfig.addFilter('round', mathFilters.round);
