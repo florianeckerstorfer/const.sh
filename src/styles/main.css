@@ -187,9 +187,11 @@
 }
 
 :root {
+  --black: black;
+  --white: white;
   --violet: #7b00fd;
 
-  --primary-color: var(--violet);
+  --primary-color: var(--black);
   --primary-contrast-color: white;
   --text-color: #303030;
 
@@ -224,15 +226,14 @@ textarea {
 
 .structure--hmf {
   grid-template-areas:
-    '. header header .'
+    'header header header header'
     '. main main .'
     'footer footer footer footer';
-  grid-template-columns: 1fr 80ch 1fr;
+  grid-template-columns: 1fr 40ch 40ch 1fr;
 }
 
 .main {
   grid-area: main;
-  max-width: 80ch;
   padding: 0 2ch;
 }
 
@@ -346,7 +347,7 @@ h2[id]:focus a::before {
 a:link,
 a:active,
 a:visited {
-  color: var(--violet);
+  color: var(--primary-color);
 }
 
 a:hover {

@@ -1,15 +1,3 @@
-function calcDiffPercentage(value1, value2, reverseColor) {
-  reverseColor = reverseColor || false;
-  const diff = value1 - value2;
-  const percent = Math.round((100 / (value2 || 1)) * diff);
-  const symbol = percent > 0 ? '+' : percent === 0 ? '=' : '';
-  const classPercent = reverseColor ? percent * -1 : percent;
-  return [
-    `${symbol}${percent}`,
-    classPercent > 0 ? 'plus' : classPercent < 0 ? 'minus' : '',
-  ];
-}
-
 async function main() {
   const selectElem = document.getElementById('select-7ti');
 
