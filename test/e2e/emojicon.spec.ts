@@ -2,13 +2,13 @@ import { describe, it, expect } from './server.folio';
 
 describe('emojicon page', () => {
   it('has title', async ({ page, port }) => {
-    await page.goto(`http://localhost:${port}/emojicon`);
-
-    expect(await page.textContent('h1')).toBe('Emojicon');
+    await page.goto(`http://localhost:${port}/emojicon/`);
+    const title = await page.textContent('h1');
+    expect(title).toContain('Emojicon');
   });
 
   it('generates image of clicked emoji', async ({ page, port }) => {
-    await page.goto(`http://localhost:${port}/emojicon`);
+    await page.goto(`http://localhost:${port}/emojicon/`);
     await page.click('.examples a:first-child');
 
     expect(await page.$('canvas')).not.toBeNull();
@@ -18,7 +18,7 @@ describe('emojicon page', () => {
   });
 
   it('generates image of input emoji', async ({ page, port }) => {
-    await page.goto(`http://localhost:${port}/emojicon`);
+    await page.goto(`http://localhost:${port}/emojicon/`);
     await page.fill('#emoji', '🚀');
 
     expect(await page.$('canvas')).not.toBeNull();

@@ -5,6 +5,6 @@ describe('index page', () => {
     await page.goto(`http://localhost:${port}`);
     const href = await page.getAttribute('"/emojicon"', 'href');
 
-    expect(href).toBe('/emojicon');
+    expect(href).toBe('/emojicon/');
   });
 });
