@@ -95,24 +95,3 @@
 .covid19-table__value .minus {
   color: green;
 }
-
-.overview-table td {
-  vertical-align: top;
-  text-align: right;
-  width: 8ch;
-}
-
-.overview-table th:first-child,
-.overview-table td:first-child {
-  text-align: left;
-  width: 10ch;
-}
-
-.overview-table td:nth-child(2) {
-  font-size: 1.2rem;
-  vertical-align: middle;
-}
-
-.overview-table tr:nth-child(odd) td {
-  background: #efefef;
-}
