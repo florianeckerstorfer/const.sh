@@ -17,10 +17,14 @@
 }
 
 .header--index h1 {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-family: var(--monospace-font-family);
   margin: 1rem 0 0;
   text-align: left;
+}
+
+@media (min-width: 340px) {
+  font-size: 2rem;
 }
 
 .header .h1-cli__seperator {
