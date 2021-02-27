@@ -23,46 +23,41 @@ styles:
   <h1><strong>COVID19</strong> in <br>Österreich</h1>
 </header>
 <main class="main main--covid19-at">
-  <table class="overview-table">
-    <thead>
-      <tr>
-        <th>
-          <select id="select-7ti">
-            {% for province in provinces %}
-              <option value="{{ province.BundeslandID }}" {{ "selected" if province.BundeslandID === defaultProvince }}>
-                {{ province.Bundesland }}
-              </option>
-            {% endfor %}
-          </select>
-        </th>
-        <th>Gestern<br><span class="date">{{ dates.yesterday }}</span></th>
-        <th>Vorgestern<br><span class="date">{{ dates.beforeYesterday }}</span></th>
-        <th>Vorige Woche<br><span class="date">{{ dates.lastWeek }}</span></th>
-        <th>Voriges Monat<br><span class="date">{{ dates.lastMonth }}</span></th>
-    </thead>
-    <tbody>
-      {% for province in provinces %}
-        {% for stat in stats %}
+  <div class="covid19-table">
+    <div class="covid19-table__select">
+      <select id="select-7ti">
+        {% for province in provinces %}
+          <option value="{{ province.BundeslandID }}" {{ "selected" if province.BundeslandID === defaultProvince }}>
+            {{ province.Bundesland }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="covid19-table__header">Gestern<br><span class="date">{{ dates.yesterday }}</span></div>
+    <div class="covid19-table__header">Vorgestern<br><span class="date">{{ dates.beforeYesterday }}</span></div>
+    <div class="covid19-table__header">Vorige Woche<br><span class="date">{{ dates.lastWeek }}</span></div>
+    <div class="covid19-table__header">Voriges Monat<br><span class="date">{{ dates.lastMonth }}</span></div>
+    {% for province in provinces %}
+      {% for stat in stats %}
         {% set row = timeline | covid19AtRowByProvince(province.BundeslandID) %}
-        <tr data-bundesland="{{ province.BundeslandID }}" class="data-row {{ "hide" if province.BundeslandID !== defaultProvince }}">
-          <td class="row-header">{{ stat.name }}</td>
-          <td>{{ row.yesterday[stat.id] | round }}</td>
-          <td>
+          <div class="covid19-table__cell covid19-table__stat-name {{ "hide" if province.BundeslandID !== defaultProvince }}" data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}">{{ stat.name }}</div>
+          <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
+            {{ row.yesterday[stat.id] | round }}
+          </div>
+          <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
             {{ row.beforeYesterday[stat.id] | round }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.beforeYesterday[stat.id], stat.higherIsBetter %}
-          </td>
-          <td>
+          </div>
+          <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
             {{ row.lastWeek[stat.id] | round }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastWeek[stat.id], stat.higherIsBetter %}
-          </td>
-          <td>
+          </div>
+          <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
             {{ row.lastMonth[stat.id] | round }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastMonth[stat.id], stat.higherIsBetter %}
-          </td>
-        </tr>
+          </div>
         {% endfor %}
       {% endfor %}
-    </tbody>
-  </table>
+  </div>
   <p>Datenquellen: BMSGPK, <a href="https://www.data.gv.at/covid-19">Österreichisches COVID-19 Open Data Informationsportal</a>
 </main>

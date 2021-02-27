@@ -3,7 +3,7 @@ async function main() {
 
   selectElem.addEventListener('change', (event) => {
     const bundeslandID = parseInt(event.target.value, 10);
-    document.querySelectorAll('.overview-table .data-row').forEach((elem) => {
+    document.querySelectorAll('.covid19-table__cell ').forEach((elem) => {
       const elemBundeslandID = parseInt(
         elem.getAttribute('data-bundesland'),
         10

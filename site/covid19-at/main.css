@@ -4,7 +4,7 @@
 }
 
 .header--covid19-at h1 {
-  font-family: Bould;
+  font-family: var(--body-font-family);
   font-weight: 200;
   line-height: 1;
   text-align: center;
@@ -19,34 +19,87 @@
   font-family: Bould;
 }
 
-.overview-table {
-  border-collapse: collapse;
-  width: 100%;
+.covid19-table {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.overview-table tr.hide {
+@media (min-width: 600px) {
+  .covid19-table {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.covid19-table__select {
+  grid-column: 1 / span 4;
+  text-align: center;
+}
+
+@media (min-width: 600px) {
+  .covid19-table__select {
+    grid-column: 1;
+    text-align: left;
+  }
+}
+
+.covid19-table__header,
+.covid19-table__stat-name,
+.covid19-table__value {
+  padding: 0.2rem;
+}
+
+.covid19-table__stat-name.hide,
+.covid19-table__value.hide {
   display: none;
 }
 
-.overview-table th,
-.overview-table td {
-  padding: 0.2rem;
+.covid19-table__header {
+  font-weight: 300;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.covid19-table__header .date {
+  font-size: 0.8rem;
+}
+
+.covid19-table__stat-name {
+  grid-column: 1 / span 4;
+  font-size: 1.2rem;
+  font-weight: bold;
+  vertical-align: middle;
+  text-align: left;
+  padding: 0.3rem;
+}
+
+@media (min-width: 600px) {
+  .covid19-table__stat-name {
+    grid-column: 1;
+  }
+}
+
+.covid19-table__value {
+  text-align: right;
+}
+
+.covid19-table__value .compare {
+  color: #555;
+  display: block;
+  font-size: 0.75rem;
+}
+
+.covid19-table__value .plus {
+  color: red;
+}
+
+.covid19-table__value .minus {
+  color: green;
 }
 
 .overview-table td {
   vertical-align: top;
   text-align: right;
   width: 8ch;
-}
-
-.overview-table th {
-  font-weight: 300;
-  text-align: right;
-  text-transform: uppercase;
-}
-
-.overview-table th .date {
-  font-size: 0.8rem;
 }
 
 .overview-table th:first-child,
@@ -62,26 +115,4 @@
 
 .overview-table tr:nth-child(odd) td {
   background: #efefef;
-}
-
-.overview-table td .compare {
-  color: #555;
-  display: block;
-  font-size: 0.75rem;
-}
-
-.overview-table td .plus {
-  color: red;
-}
-
-.overview-table td .minus {
-  color: green;
-}
-
-.overview-table .row-header {
-  font-size: 1.2rem;
-  font-weight: bold;
-  vertical-align: middle;
-  text-align: center;
-  padding: 0.3rem;
 }

@@ -25,9 +25,20 @@
 
 .structure--hmf {
   grid-template-areas:
-    'header header header header'
-    '. main main .'
-    'footer footer footer footer';
-  grid-template-columns: 1fr 40ch 40ch 1fr;
+    'header'
+    'main'
+    'footer';
+  grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr min-content;
+}
+
+@media (min-width: 600px) {
+  .structure--hmf {
+    grid-template-areas:
+      'header header header header'
+      '. main main .'
+      'footer footer footer footer';
+    grid-template-columns: 1fr 40ch 40ch 1fr;
+    grid-template-rows: min-content 1fr min-content;
+  }
 }
