@@ -10,12 +10,13 @@ scripts:
 styles:
   - /covid19-at/main.css
 ---
-{% set defaultProvince = "10" %}
+{% set defaultProvince = 10 %}
 {% set stats = [ 
   { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz', higherIsBetter: false },
   { id: 'AnzahlFaelle', name: 'Fälle', higherIsBetter: false },
   { id: 'AnzahlTotTaeglich', name: 'Todesfälle', higherIsBetter: false },
-  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene', higherIsBetter: true }
+  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene', higherIsBetter: true },
+  { id: 'Test', name: 'Tests', higherIsBetter: true }
 ] %}
 <header class="header header--covid19-at main">
   <h1><strong>COVID19</strong> in <br>Österreich</h1>
