@@ -1,37 +1,4 @@
 @font-face {
-  font-family: 'Source Code';
-  font-weight: 200 900;
-  font-display: swap;
-  font-stretch: normal;
-  font-style: normal;
-  src: url('/fonts/source-code.woff2') format('woff2'),
-    url('/fonts/source-code.woff') format('woff'),
-    url('/fonts/source-code.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'Source Code';
-  font-weight: 200 900;
-  font-display: swap;
-  font-stretch: normal;
-  font-style: italic;
-  src: url('/fonts/source-code-italic.woff2') format('woff2'),
-    url('/fonts/source-code-italic.woff') format('woff'),
-    url('/fonts/source-code-italic.otf') format('opentype');
-}
-
-@font-face {
-  font-family: 'League Spartan';
-  font-weight: 200 900;
-  font-display: swap;
-  font-stretch: normal;
-  font-style: normal;
-  src: url('/fonts/league-spartan.woff2') format('woff2'),
-    url('/fonts/league-spartan.woff') format('woff'),
-    url('/fonts/league-spartan.ttf') format('true-type');
-}
-
-@font-face {
   font-family: 'Bould';
   src: url('/fonts/bould-thinitalic.eot');
   src: url('/fonts/bould-thinitalic.eot?#iefix') format('embedded-opentype'),
@@ -40,6 +7,7 @@
     url('/fonts/bould-thinitalic.ttf') format('truetype');
   font-weight: 100;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -52,6 +20,7 @@
     url('/fonts/bould-extralightitalic.woff') format('woff');
   font-weight: 200;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -63,6 +32,7 @@
     url('/fonts/bould-lightitalic.ttf') format('truetype');
   font-weight: 300;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -74,6 +44,7 @@
     url('/fonts/bould-regularitalic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -85,6 +56,7 @@
     url('/fonts/bould-mediumitalic.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -96,6 +68,7 @@
     url('/fonts/bould-semibolditalic.ttf') format('truetype');
   font-weight: 600;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -107,6 +80,7 @@
     url('/fonts/bould-bolditalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -118,6 +92,7 @@
     url('/fonts/bould-thin.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -129,6 +104,7 @@
     url('/fonts/bould-extralight.woff') format('woff');
   font-weight: 200;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -140,6 +116,7 @@
     url('/fonts/bould-light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -151,6 +128,7 @@
     url('/fonts/bould-regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -162,6 +140,7 @@
     url('/fonts/bould-medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -173,6 +152,7 @@
     url('/fonts/bould-semibold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -184,214 +164,5 @@
     url('/fonts/bould-bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-}
-
-:root {
-  --black: black;
-  --white: white;
-  --violet: #7b00fd;
-
-  --primary-color: var(--black);
-  --primary-contrast-color: white;
-  --text-color: #303030;
-
-  --headline-font-family: 'League Spartan', Futura, sans-serif;
-  --body-font-family: 'Source Code', 'Courier New', Courier, monospace;
-  --body-font-size: 1rem;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body,
-button,
-input,
-textarea {
-  color: var(--text-color);
-  font-family: var(--body-font-family);
-  font-size: var(--body-font-size);
-}
-
-.structure {
-  display: grid;
-  grid-gap: 1rem;
-  margin: 0 auto;
-}
-
-.structure--hmf {
-  grid-template-areas:
-    'header header header header'
-    '. main main .'
-    'footer footer footer footer';
-  grid-template-columns: 1fr 40ch 40ch 1fr;
-}
-
-.main {
-  grid-area: main;
-  padding: 0 2ch;
-}
-
-.main section {
-  margin-bottom: 2rem;
-}
-
-.nav {
-  grid-area: nav;
-  position: sticky;
-  top: 5px;
-  bottom: auto;
-}
-
-.nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav a:link,
-.nav a:active,
-.nav a:visited {
-  background: var(--primary-color);
-  display: block;
-  color: var(--primary-contrast-color);
-  font-family: var(--headline-font-family);
-  font-size: 0.8rem;
-  line-height: 2;
-  text-transform: uppercase;
-  font-weight: 700;
-  padding: 0.25rem 1rem 0;
-  margin-bottom: 0.5rem;
-  letter-spacing: 3px;
-  text-decoration: none;
-}
-
-.nav a:hover,
-.nav a:focus {
-  background: black;
-}
-
-.header {
-  grid-area: header;
-}
-
-h1 {
-  font-family: var(--headline-font-family);
-  font-size: 3rem;
-  letter-spacing: 2px;
-  margin: 1em 0;
-  text-align: center;
-}
-
-h1 .tagline {
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-}
-
-h1 .tagline::before,
-h1 .tagline::after {
-  content: ' ';
-  display: block;
-  background: #ccc;
-  height: 1px;
-  flex: 1;
-}
-
-h1 .tagline::before {
-  margin-right: 1rem;
-}
-
-h1 .tagline::after {
-  margin-left: 1rem;
-}
-
-h2 {
-  font-family: var(--headline-font-family);
-  font-size: 2rem;
-  letter-spacing: 1px;
-  margin-top: 0;
-}
-
-h2[id] a {
-  display: block;
-}
-
-h2[id] a:link,
-h2[id] a:active,
-h2[id] a:visited,
-h2[id] a:focus,
-h2[id] a:hover {
-  color: var(--text-color);
-  text-decoration: none;
-}
-
-h2[id] a::before {
-  color: #c0c0c0;
-  content: '#';
-  margin-left: -1ch;
-}
-
-h2[id]:hover a::before,
-h2[id]:focus a::before {
-  color: var(--violet);
-}
-
-a:link,
-a:active,
-a:visited {
-  color: var(--primary-color);
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-.centered-page {
-  margin: 0 auto;
-  max-width: 650px;
-  padding: 0 0.5rem;
-}
-
-.ls-list {
-  list-style: none;
-  margin: 1rem;
-  padding: 0;
-  font-size: 1.25rem;
-}
-
-.ls-list li::before {
-  display: inline-block;
-  font-style: italic;
-  content: '$';
-  color: grey;
-}
-
-footer {
-  background: black;
-  color: white;
-  grid-area: footer;
-  margin-top: 3rem;
-  padding: 0.5rem;
-}
-
-footer p:first-child {
-  margin-top: 0;
-}
-
-footer p:last-child {
-  margin-bottom: 0;
-}
-
-footer a:link,
-footer a:active,
-footer a:visited {
-  color: white;
+  font-display: swap;
 }

@@ -1,0 +1,20 @@
+.footer {
+  background: var(--secondary-color);
+  color: var(--secondary-contrast-color);
+  grid-area: footer;
+  padding: 0.5rem;
+}
+
+.footer p:first-child {
+  margin-top: 0;
+}
+
+.footer p:last-child {
+  margin-bottom: 0;
+}
+
+.footer a:link,
+.footer a:active,
+.footer a:visited {
+  color: var(--secondary-contrast-color);
+}

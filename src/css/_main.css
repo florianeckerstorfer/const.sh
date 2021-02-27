@@ -1,0 +1,19 @@
+.main {
+  grid-area: main;
+  padding: 0 2ch;
+}
+
+.main--index {
+  background: var(--primary-color);
+  color: var(--primary-contrast-color);
+}
+
+.main--index a:link,
+.main--index a:active,
+.main--index a:visited {
+  color: var(--primary-contrast-color);
+}
+
+.main section {
+  margin-bottom: 2rem;
+}

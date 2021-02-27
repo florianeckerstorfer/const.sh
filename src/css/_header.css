@@ -1,0 +1,32 @@
+.header {
+  grid-area: header;
+}
+
+.header--index {
+  background: var(--primary-color);
+  color: var(--primary-contrast-color);
+}
+
+.header h1 {
+  font-family: var(--headline-font-family);
+  font-size: 3rem;
+  letter-spacing: 2px;
+  margin: 1em 0;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.header--index h1 {
+  font-size: 2rem;
+  font-family: var(--monospace-font-family);
+  margin: 1rem 0 0;
+  text-align: left;
+}
+
+.header .h1-cli__seperator {
+  color: var(--secondary-color);
+}
+
+.header .h1-cli__command {
+  color: var(--light-grey);
+}

@@ -9,7 +9,7 @@ structure: hmf
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <link rel="shortcut icon" type="image/png" href="{{ favicon or '/favicon.png' }}">
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="{{ css.stylesCss }}">
     {% for href in styles %}
       <link rel="stylesheet" href="{{ href }}">
     {% endfor %}
@@ -17,7 +17,7 @@ structure: hmf
   <body>
     <div class="structure structure--{{ structure }}">
       {{ content | safe }}
-      <footer>
+      <footer class="footer">
         <p>
           <small>
             <a href="/">const.sh</a>. Made by <a href="https://florian.ec">Florian Eckerstorfer</a> in Vienna, Europe.

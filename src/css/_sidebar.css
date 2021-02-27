@@ -1,0 +1,9 @@
+.sidebar {
+  grid-area: sidebar;
+}
+
+.sidebar h2 {
+  margin-top: 1rem;
+  font-weight: 400;
+  text-align: center;
+}

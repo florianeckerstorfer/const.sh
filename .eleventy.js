@@ -1,7 +1,9 @@
 const dayjs = require('dayjs');
 const covid19AtFilters = require('./src/filters/covid19AtFilters');
 const mathFilters = require('./src/filters/mathFilters');
+const stringFilters = require('./src/filters/stringFilters');
 const covid19AtShortcodes = require('./src/shortcodes/covid19AtShortcodes');
+const dateFilters = require('./src/filters/dateFilters');
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addLayoutAlias('base', 'layout-base.njk');
@@ -14,7 +16,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('site/**/*.jpg');
   eleventyConfig.addPassthroughCopy('site/**/*.jpeg');
   eleventyConfig.addPassthroughCopy('site/**/*.csv');
-  eleventyConfig.addPassthroughCopy({ 'src/styles/**/*.css': 'styles' });
   eleventyConfig.addPassthroughCopy({
     'src/fonts/**/*.eot': 'fonts',
     'src/fonts/**/*.otf': 'fonts',
@@ -33,6 +34,11 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter('round', mathFilters.round);
+  eleventyConfig.addFilter(
+    'removeTrailingSlash',
+    stringFilters.removeTrailingSlash
+  );
+  eleventyConfig.addFilter('formatDate', dateFilters.formatDateFilter);
 
   return {
     dir: {

@@ -1,14 +1,32 @@
 ---
 title: const.sh
-layout: generic
+layout: base
+structure: hmsf-index
 ---
-<div class="centered-page">
-  <ul class="ls-list">
-    <li>
-      <a href="/emojicon">Emojicon</a>
-    </li>
-    <li>
-      <a href="/covid19-at">COVID19 in &Ouml;sterreich</a>
-    </li>
+<header class="header header--index">
+  <h1 class="h1-cli">
+    <span class="h1-cli__computer">const.sh</span> 
+    <span class="h1-cli__seperator">❯</span> 
+    <span class="h1-cli__command">ls</span></h1>
+</header>
+<main class="main main--index">
+<ul class="ls-list">
+  {%- for post in collections.project -%}
+    <li><a href="{{ post.url }}">{{ post.url | removeTrailingSlash }}</a></li>
+  {%- endfor -%}
   </ul>
-</div>
+</main>
+<aside class="sidebar">
+  <h2>Updates</h2>
+  <ul class="update-list">
+  {%- for post in collections.update -%}
+    <li class="update-list__item">
+      <h3 class="update-list__title">{{ post.data.title }}</h3>
+      {{ post.templateContent | safe }}
+      <div class="update-list__meta">
+        <span>{{ post.data.date | formatDate('MMM D, YYYY') }}</span>
+      </div>
+    </li>
+  {%- endfor -%}
+  </ul>
+</aside>

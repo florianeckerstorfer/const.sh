@@ -1,0 +1,22 @@
+:root {
+  --black: black;
+  --white: white;
+  --violet: #7b00fd;
+  --faraway-sky: #8e7cc3;
+  --solstice: #bbbbb8;
+  --blue-jasmine: #818599;
+  --tricorn-black: #303030;
+
+  --primary-color: var(--black);
+  --primary-contrast-color: var(--white);
+  --secondary-color: var(--faraway-sky);
+  --secondary-contrast-color: var(--white);
+  --tertiary-color: var(--blue-jasmine);
+  --light-grey: var(--solstice);
+  --text-color: var(--tricorn-black);
+
+  --headline-font-family: Bould, Futura, sans-serif;
+  --body-font-family: Bould, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --monospace-font-family: 'Source Code', 'Courier New', Courier, monospace;
+  --body-font-size: 1rem;
+}
