@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.update-list__item {
+  margin-bottom: 1rem;
+}
+
 .update-list p {
   margin: 0 0 0.5rem;
 }
