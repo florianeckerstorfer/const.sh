@@ -40,6 +40,7 @@ module.exports = function (eleventyConfig) {
     stringFilters.removeTrailingSlash
   );
   eleventyConfig.addFilter('formatDate', dateFilters.formatDateFilter);
+  eleventyConfig.addFilter('currentDate', dateFilters.currentDateFilter);
 
   return {
     dir: {
