@@ -34,6 +34,7 @@ module.exports = function (eleventyConfig) {
   );
 
   eleventyConfig.addFilter('round', mathFilters.round);
+  eleventyConfig.addFilter('formatNumber', mathFilters.formatNumber);
   eleventyConfig.addFilter(
     'removeTrailingSlash',
     stringFilters.removeTrailingSlash

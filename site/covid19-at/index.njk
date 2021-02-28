@@ -42,18 +42,18 @@ styles:
         {% set row = timeline | covid19AtRowByProvince(province.BundeslandID) %}
           <div class="covid19-table__cell covid19-table__stat-name {{ "hide" if province.BundeslandID !== defaultProvince }}" data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}">{{ stat.name }}</div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.yesterday[stat.id] | round }}
+            {{ row.yesterday[stat.id] | round | formatNumber }}
           </div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.beforeYesterday[stat.id] | round }}
+            {{ row.beforeYesterday[stat.id] | round | formatNumber }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.beforeYesterday[stat.id], stat.higherIsBetter %}
           </div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.lastWeek[stat.id] | round }}
+            {{ row.lastWeek[stat.id] | round | formatNumber }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastWeek[stat.id], stat.higherIsBetter %}
           </div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.lastMonth[stat.id] | round }}
+            {{ row.lastMonth[stat.id] | round | formatNumber }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastMonth[stat.id], stat.higherIsBetter %}
           </div>
         {% endfor %}
