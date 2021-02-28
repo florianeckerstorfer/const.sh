@@ -5,6 +5,9 @@ function covid19AtDiffBetweenValues(
 ) {
   currentValue = parseInt(currentValue, 10);
   compareValue = parseInt(compareValue, 10);
+  if (isNaN(currentValue) || isNaN(compareValue)) {
+    return '';
+  }
   const diff = currentValue - compareValue;
   const percent = Math.round((100 / (compareValue || 1)) * diff);
   const symbol = percent > 0 ? '+' : percent === 0 ? '=' : '';
