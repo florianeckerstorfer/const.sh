@@ -1,4 +1,7 @@
 const dayjs = require('dayjs');
+const customParseFormat = require('dayjs/plugin/customParseFormat');
+
+dayjs.extend(customParseFormat);
 
 function filterTimeline(timeline) {
   return {
@@ -15,14 +18,18 @@ function filterTimeline(timeline) {
   };
 }
 
-function covid19AtRowByProvince(timeline, province) {
-  const date = dayjs();
+function covid19AtRowByProvince(timeline, province, dates) {
+  const lastDay = dayjs(dates.yesterday, 'DD.MM.YYYY');
+  const dayBefore = dayjs(dates.beforeYesterday, 'DD.MM.YYYY');
+  const lastWeek = dayjs(dates.lastWeek, 'DD.MM.YYYY');
+  const lastMonth = dayjs(dates.lastMonth, 'DD.MM.YYYY');
+
   const filter = filterTimeline(timeline).province(province);
   return {
-    yesterday: filter.date(date.subtract(1, 'day')),
-    beforeYesterday: filter.date(date.subtract(2, 'day')),
-    lastWeek: filter.date(date.subtract(8, 'day')),
-    lastMonth: filter.date(date.subtract(31, 'day')),
+    yesterday: filter.date(lastDay),
+    beforeYesterday: filter.date(dayBefore),
+    lastWeek: filter.date(lastWeek),
+    lastMonth: filter.date(lastMonth),
   };
 }
 

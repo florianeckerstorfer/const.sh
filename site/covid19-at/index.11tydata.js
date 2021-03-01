@@ -91,11 +91,15 @@ module.exports = async function () {
   const provinces = timeline
     .map(({ Bundesland, BundeslandID }) => ({ Bundesland, BundeslandID }))
     .filter(uniqueProvince);
+  const lastDay = timeline.reduce((prev, current) => {
+    const thisDate = dayjs(current.Time, 'DD.MM.YYYY HH:mm:ss');
+    return !prev || thisDate.isAfter(prev) ? thisDate : prev;
+  }, false);
   const dates = {
-    yesterday: dayjs().subtract(1, 'day').format('DD.MM.YYYY'),
-    beforeYesterday: dayjs().subtract(2, 'day').format('DD.MM.YYYY'),
-    lastWeek: dayjs().subtract(8, 'day').format('DD.MM.YYYY'),
-    lastMonth: dayjs().subtract(31, 'day').format('DD.MM.YYYY'),
+    yesterday: lastDay.format('DD.MM.YYYY'),
+    beforeYesterday: lastDay.subtract(1, 'day').format('DD.MM.YYYY'),
+    lastWeek: lastDay.subtract(7, 'day').format('DD.MM.YYYY'),
+    lastMonth: lastDay.subtract(30, 'day').format('DD.MM.YYYY'),
   };
   return { timeline, testsAndHospitals, provinces, dates };
 };
