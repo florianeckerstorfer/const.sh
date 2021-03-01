@@ -8,7 +8,7 @@ function round(value) {
 
 function formatNumber(value) {
   if (value === null || value === undefined) {
-    return '';
+    return '-';
   }
   const formatter = new Intl.NumberFormat('de-DE');
   return formatter.format(value);
