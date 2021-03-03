@@ -13,11 +13,13 @@ styles:
 ---
 {% set defaultProvince = 10 %}
 {% set stats = [ 
-  { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz', higherIsBetter: false },
-  { id: 'AnzahlFaelle', name: 'Fälle', higherIsBetter: false },
-  { id: 'AnzahlTotTaeglich', name: 'Todesfälle', higherIsBetter: false },
-  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene', higherIsBetter: true },
-  { id: 'Test', name: 'Tests', higherIsBetter: true }
+  { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz', higherIsBetter: false, isPercent: false },
+  { id: 'AnzahlFaelle', name: 'Fälle', higherIsBetter: false, isPercent: false },
+  { id: 'AnzahlTotTaeglich', name: 'Todesfälle', higherIsBetter: false, isPercent: false },
+  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene', higherIsBetter: true, isPercent: false },
+  { id: 'Test', name: 'Tests', higherIsBetter: true, isPercent: false },
+  { id: 'FZHospPercent', name: 'Normalstation', description: 'Auslastung', higherIsBetter: false, isPercent: true },
+  { id: 'FZICUPercent', name: 'Intensivstation', description: 'Auslastung', higherIsBetter: false, isPercent: true }
 ] %}
 <header class="header header--covid19-at">
   <h1><strong>COVID19</strong> in <br>Österreich</h1>
@@ -40,20 +42,25 @@ styles:
     {% for province in provinces %}
       {% for stat in stats %}
         {% set row = timeline | covid19AtRowByProvince(province.BundeslandID, dates) %}
-          <div class="covid19-table__cell covid19-table__stat-name {{ "hide" if province.BundeslandID !== defaultProvince }}" data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}">{{ stat.name }}</div>
-          <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.yesterday[stat.id] | round | formatNumber }}
+          <div class="covid19-table__cell covid19-table__stat-name {{ "hide" if province.BundeslandID !== defaultProvince }}" data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}">
+            {{ stat.name }}
+            {% if stat.description %}
+            <span class="covid19-table__stat-description">{{ stat.description }}</span>
+            {% endif %}
           </div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.beforeYesterday[stat.id] | round | formatNumber }}
+            {{ row.yesterday[stat.id] | round | formatNumber(stat.isPercent) }}
+          </div>
+          <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
+            {{ row.beforeYesterday[stat.id] | round | formatNumber(stat.isPercent) }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.beforeYesterday[stat.id], stat.higherIsBetter %}
           </div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.lastWeek[stat.id] | round | formatNumber }}
+            {{ row.lastWeek[stat.id] | round | formatNumber(stat.isPercent) }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastWeek[stat.id], stat.higherIsBetter %}
           </div>
           <div data-bundesland="{{ province.BundeslandID }}" data-stat="{{ stat.id }}" class="covid19-table__cell covid19-table__value {{ "hide" if province.BundeslandID !== defaultProvince }}">
-            {{ row.lastMonth[stat.id] | round | formatNumber }}
+            {{ row.lastMonth[stat.id] | round | formatNumber(stat.isPercent) }}
             {% covid19AtDiffBetweenValues row.yesterday[stat.id], row.lastMonth[stat.id], stat.higherIsBetter %}
           </div>
         {% endfor %}

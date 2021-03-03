@@ -6,12 +6,12 @@ function round(value) {
   return Math.round(parseFloat(value));
 }
 
-function formatNumber(value) {
+function formatNumber(value, isPercent = false) {
   if (value === null || value === undefined) {
     return '-';
   }
   const formatter = new Intl.NumberFormat('de-DE');
-  return formatter.format(value);
+  return `${formatter.format(value)}${isPercent ? '%' : ''}`;
 }
 
 module.exports = {

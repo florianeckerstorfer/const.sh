@@ -56,15 +56,27 @@ async function getTestsAndHospitals() {
     const testsYesterdayGesamt = dayBeforeRow ? dayBeforeRow.TestGesamt : 0;
     const TestGesamt = parseInt(data[i].TestGesamt, 10);
     const Test = TestGesamt - testsYesterdayGesamt;
+    const FZHosp = parseInt(data[i].FZHosp, 10);
+    const FZHospFree = parseInt(data[i].FZHospFree, 10);
+    const FZHospTotal = FZHosp + FZHospFree;
+    const FZHospPercent = Math.round((100 / FZHospTotal) * FZHosp);
+    const FZICU = parseInt(data[i].FZICU, 10);
+    const FZICUFree = parseInt(data[i].FZICUFree, 10);
+    const FZICUTotal = FZICU + FZICUFree;
+    const FZICUPercent = Math.round((100 / FZICUTotal) * FZICU);
     newData[date][BundeslandID] = {
       ...data[i],
       BundeslandID,
       TestGesamt,
       Test,
-      FZHosp: parseInt(data[i].FZHosp, 10),
-      FZICU: parseInt(data[i].FZICU, 10),
-      FZHospFree: parseInt(data[i].FZHospFree, 10),
-      FZICUFree: parseInt(data[i].FZICUFree, 10),
+      FZHosp,
+      FZHospFree,
+      FZHospTotal,
+      FZHospPercent,
+      FZICU,
+      FZICUFree,
+      FZICUTotal,
+      FZICUPercent,
       BundeslandID: parseInt(data[i].BundeslandID, 10),
     };
   }
@@ -82,9 +94,13 @@ module.exports = async function () {
       row.Test = found.Test;
       row.TestGesamt = found.TestGesamt;
       row.FZHosp = found.FZHosp;
-      row.FZICU = found.FZICU;
       row.FZHospFree = found.FZHospFree;
+      row.FZHospTotal = found.FZHospTotal;
+      row.FZHospPercent = found.FZHospPercent;
+      row.FZICU = found.FZICU;
       row.FZICUFree = found.FZICUFree;
+      row.FZICUTotal = found.FZICUTotal;
+      row.FZICUPercent = found.FZICUPercent;
     }
     return row;
   });
