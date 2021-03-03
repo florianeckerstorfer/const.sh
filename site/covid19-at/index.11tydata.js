@@ -11,6 +11,50 @@ function uniqueProvince(value, index, self) {
   );
 }
 
+async function getImpfpassData() {
+  const response = await fetch(
+    'https://info.gesundheitsministerium.gv.at/data/timeline-eimpfpass.csv'
+  );
+  const text = await response.text();
+  const data = await neatCsv(text, { separator: ';' });
+  const newData = {};
+  for (let i = 0; i < data.length; i += 1) {
+    const row = data[i];
+    const rowDate = Object.values(row)[0];
+    const date = dayjs(rowDate, 'YYYY-MM-DDTHH:mm:ssZ');
+    const dateString = date.format('YYYY-MM-DD');
+    if (!newData[dateString]) {
+      newData[dateString] = {};
+    }
+    const BundeslandID = parseInt(row.BundeslandID, 10);
+    const dayBefore = date.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ssZ');
+    const dayBeforeRow = data.find((item) => {
+      const itemDate = Object.values(item)[0];
+      return itemDate === dayBefore && item.BundeslandID === row.BundeslandID;
+    });
+    const TeilgeimpfteDayBefore = dayBeforeRow ? dayBeforeRow.Teilgeimpfte : 0;
+    const VollimmunisierteDayBefore = dayBeforeRow
+      ? dayBeforeRow.Vollimmunisierte
+      : 0;
+    const Teilgeimpfte = parseInt(row.Teilgeimpfte, 10);
+    const Vollimmunisierte = parseInt(row.Vollimmunisierte, 10);
+    newData[dateString][BundeslandID] = {
+      ...row,
+      BundeslandID,
+      Bevoelkerung: parseInt(row['Bevölkerung'], 10),
+      EingetrageneImpfungen: parseInt(row.EingetrageneImpfungen, 10),
+      EingetrageneImpfungenPro100: parseFloat(row.EingetrageneImpfungenPro100),
+      Teilgeimpfte,
+      TeilgeimpftePro100: parseFloat(row.TeilgeimpftePro100),
+      Vollimmunisierte,
+      VollimmunisiertePro100: parseFloat(row.VollimmunisiertePro100),
+      TeilgeimpfteTaeglich: Teilgeimpfte - TeilgeimpfteDayBefore,
+      VollimmunisierteTaeglich: Vollimmunisierte - VollimmunisierteDayBefore,
+    };
+  }
+  return newData;
+}
+
 async function getTimeline() {
   const response = await fetch(
     'https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline.csv'
@@ -85,22 +129,31 @@ async function getTestsAndHospitals() {
 
 module.exports = async function () {
   const testsAndHospitals = await getTestsAndHospitals();
+  const impfungen = await getImpfpassData();
   const timeline = (await getTimeline()).map((row) => {
     const rowDate = dayjs(row.Time, 'DD.MM.YYYY HH:mm:ss').format('YYYY-MM-DD');
-    const found = testsAndHospitals[rowDate]
+    const foundTestRow = testsAndHospitals[rowDate]
       ? testsAndHospitals[rowDate][row.BundeslandID]
       : undefined;
-    if (found) {
-      row.Test = found.Test;
-      row.TestGesamt = found.TestGesamt;
-      row.FZHosp = found.FZHosp;
-      row.FZHospFree = found.FZHospFree;
-      row.FZHospTotal = found.FZHospTotal;
-      row.FZHospPercent = found.FZHospPercent;
-      row.FZICU = found.FZICU;
-      row.FZICUFree = found.FZICUFree;
-      row.FZICUTotal = found.FZICUTotal;
-      row.FZICUPercent = found.FZICUPercent;
+    if (foundTestRow) {
+      row.Test = foundTestRow.Test;
+      row.TestGesamt = foundTestRow.TestGesamt;
+      row.FZHosp = foundTestRow.FZHosp;
+      row.FZHospFree = foundTestRow.FZHospFree;
+      row.FZHospTotal = foundTestRow.FZHospTotal;
+      row.FZHospPercent = foundTestRow.FZHospPercent;
+      row.FZICU = foundTestRow.FZICU;
+      row.FZICUFree = foundTestRow.FZICUFree;
+      row.FZICUTotal = foundTestRow.FZICUTotal;
+      row.FZICUPercent = foundTestRow.FZICUPercent;
+    }
+    const foundVaccinationRow = impfungen[rowDate]
+      ? impfungen[rowDate][row.BundeslandID]
+      : undefined;
+    if (foundVaccinationRow) {
+      row.TeilgeimpfteTaeglich = foundVaccinationRow.TeilgeimpfteTaeglich;
+      row.VollimmunisierteTaeglich =
+        foundVaccinationRow.VollimmunisierteTaeglich;
     }
     return row;
   });
