@@ -15,26 +15,17 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - uses: sarisia/setup-icu@v1
-        with:
-          noexport: true
       - uses: microsoft/playwright-github-action@v1
       - run: mkdir -p ~/.aws
       - run: echo "[const.sh]" > ~/.aws/credentials
       - run: echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
       - run: echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
       - run: npm install
-        env:
-          NODE_ICU_DATA: ${{ steps.setup-icu.outputs.icu-data-dir }}
+      - name: 'Test ICU'
+        run: node -e "console.log(new Intl.DateTimeFormat('es',{month:'long'}).format(new Date(9E8)));"
       - run: npm run build
-        env:
-          NODE_ICU_DATA: ${{ steps.setup-icu.outputs.icu-data-dir }}
       - run: npm test
-        env:
-          NODE_ICU_DATA: ${{ steps.setup-icu.outputs.icu-data-dir }}
       - run: npm run deploy
-        env:
-          NODE_ICU_DATA: ${{ steps.setup-icu.outputs.icu-data-dir }}
       - uses: actions/upload-artifact@v2
         with:
           name: test-results
