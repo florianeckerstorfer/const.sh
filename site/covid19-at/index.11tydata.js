@@ -21,16 +21,19 @@ async function getImpfpassData() {
   for (let i = 0; i < data.length; i += 1) {
     const row = data[i];
     const rowDate = Object.values(row)[0];
-    const date = dayjs(rowDate, 'YYYY-MM-DDTHH:mm:ssZ');
+    const date = dayjs(rowDate.match(/\d{4}-\d{2}-\d{2}/)[0], 'YYYY-MM-DD');
     const dateString = date.format('YYYY-MM-DD');
     if (!newData[dateString]) {
       newData[dateString] = {};
     }
     const BundeslandID = parseInt(row.BundeslandID, 10);
-    const dayBefore = date.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ssZ');
+    const dayBefore = date.subtract(1, 'day').format('YYYY-MM-DD');
     const dayBeforeRow = data.find((item) => {
       const itemDate = Object.values(item)[0];
-      return itemDate === dayBefore && item.BundeslandID === row.BundeslandID;
+      return (
+        itemDate.match(/\d{4}-\d{2}-\d{2}/)[0] === dayBefore &&
+        item.BundeslandID === row.BundeslandID
+      );
     });
     const TeilgeimpfteDayBefore = dayBeforeRow ? dayBeforeRow.Teilgeimpfte : 0;
     const VollimmunisierteDayBefore = dayBeforeRow

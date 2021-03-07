@@ -21,8 +21,6 @@ jobs:
       - run: echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
       - run: echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
       - run: npm install
-      - name: 'Test ICU'
-        run: NODE_ICU_DATA=node_modules/full-icu node -e "console.log(new Intl.DateTimeFormat('es',{month:'long'}).format(new Date(9E8)));"
       - run: npm run build
       - run: npm test
       - run: npm run deploy
