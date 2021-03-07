@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: 12.x
       - uses: sarisia/setup-icu@v1
-      - uses: sarisia/action-uses-icu-function@v2
       - uses: microsoft/playwright-github-action@v1
       - run: mkdir -p ~/.aws
       - run: echo "[const.sh]" > ~/.aws/credentials
