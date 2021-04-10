@@ -2,8 +2,22 @@ const fetch = require('node-fetch');
 const neatCsv = require('neat-csv');
 const dayjs = require('dayjs');
 const customParseFormat = require('dayjs/plugin/customParseFormat');
+const { Ape } = require('@fec/ape');
 
 dayjs.extend(customParseFormat);
+
+function valueParseInt(value) {
+  return parseInt(value, 10);
+}
+
+function findDayBeforeValue(ape, date, provinceId, key, defaultValue) {
+  const dayBeforeDate = date.subtract(1, 'day').format('YYYY-MM-DD');
+  const record = ape.findByIndex({
+    DatumYYYYMMDD: dayBeforeDate,
+    BundeslandID: provinceId,
+  });
+  return record ? record[key] : defaultValue;
+}
 
 function uniqueProvince(value, index, self) {
   return (
@@ -16,46 +30,52 @@ async function getImpfpassData() {
     'https://info.gesundheitsministerium.gv.at/data/timeline-eimpfpass.csv'
   );
   const text = await response.text();
-  const data = await neatCsv(text, { separator: ';' });
-  const newData = {};
-  for (let i = 0; i < data.length; i += 1) {
-    const row = data[i];
-    const rowDate = Object.values(row)[0];
-    const date = dayjs(rowDate.match(/\d{4}-\d{2}-\d{2}/)[0], 'YYYY-MM-DD');
-    const dateString = date.format('YYYY-MM-DD');
-    if (!newData[dateString]) {
-      newData[dateString] = {};
-    }
-    const BundeslandID = parseInt(row.BundeslandID, 10);
-    const dayBefore = date.subtract(1, 'day').format('YYYY-MM-DD');
-    const dayBeforeRow = data.find((item) => {
-      const itemDate = Object.values(item)[0];
-      return (
-        itemDate.match(/\d{4}-\d{2}-\d{2}/)[0] === dayBefore &&
-        item.BundeslandID === row.BundeslandID
-      );
-    });
-    const TeilgeimpfteDayBefore = dayBeforeRow ? dayBeforeRow.Teilgeimpfte : 0;
-    const VollimmunisierteDayBefore = dayBeforeRow
-      ? dayBeforeRow.Vollimmunisierte
-      : 0;
-    const Teilgeimpfte = parseInt(row.Teilgeimpfte, 10);
-    const Vollimmunisierte = parseInt(row.Vollimmunisierte, 10);
-    newData[dateString][BundeslandID] = {
-      ...row,
-      BundeslandID,
-      Bevoelkerung: parseInt(row['Bevölkerung'], 10),
-      EingetrageneImpfungen: parseInt(row.EingetrageneImpfungen, 10),
-      EingetrageneImpfungenPro100: parseFloat(row.EingetrageneImpfungenPro100),
-      Teilgeimpfte,
-      TeilgeimpftePro100: parseFloat(row.TeilgeimpftePro100),
-      Vollimmunisierte,
-      VollimmunisiertePro100: parseFloat(row.VollimmunisiertePro100),
-      TeilgeimpfteTaeglich: Teilgeimpfte - TeilgeimpfteDayBefore,
-      VollimmunisierteTaeglich: Vollimmunisierte - VollimmunisierteDayBefore,
-    };
-  }
-  return newData;
+  const ape = new Ape(
+    await neatCsv(text, {
+      separator: ';',
+      mapHeaders: ({ header }) => (header.match(/Datum/) ? 'Datum' : header),
+    })
+  );
+  ape
+    .mapValue('Datum', (value) =>
+      typeof value === 'object'
+        ? value
+        : dayjs(value.match(/\d{4}-\d{2}-\d{2}/)[0], 'YYYY-MM-DD')
+    )
+    .addProperty('DatumYYYYMMDD', (record) => record.Datum.format('YYYY-MM-DD'))
+    .mapValue('Bevoelkerung', valueParseInt)
+    .mapValue('EingetrageneImpfungen', valueParseInt)
+    .mapValue('EingetrageneImpfungenPro100', valueParseInt)
+    .mapValue('Teilgeimpfte', valueParseInt)
+    .mapValue('TeilgeimpftePro100', valueParseInt)
+    .mapValue('Vollimmunisierte', valueParseInt)
+    .mapValue('VollimmunisiertePro100', valueParseInt)
+    .createIndex(['DatumYYYYMMDD', 'BundeslandID'])
+    .addProperty(
+      'TeilgeimpfteTaeglich',
+      (record) =>
+        record.Teilgeimpfte -
+        findDayBeforeValue(
+          ape,
+          record.Datum,
+          record.BundeslandID,
+          'Teilgeimpfte',
+          0
+        )
+    )
+    .addProperty(
+      'VollimmunisierteTaeglich',
+      (record) =>
+        record.Vollimmunisierte -
+        findDayBeforeValue(
+          ape,
+          record.Datum,
+          record.BundeslandID,
+          'Vollimmunisierte',
+          0
+        )
+    );
+  return new Ape(ape.process()).createIndex(['DatumYYYYMMDD', 'BundeslandID']);
 }
 
 async function getTimeline() {
@@ -63,19 +83,19 @@ async function getTimeline() {
     'https://covid19-dashboard.ages.at/data/CovidFaelle_Timeline.csv'
   );
   const text = await response.text();
-  return (await neatCsv(text, { separator: ';' })).map((row) => ({
-    ...row,
-    BundeslandID: parseInt(row.BundeslandID, 10),
-    AnzEinwohner: parseInt(row.AnzEinwohner, 10),
-    AnzahlFaelle: parseInt(row.AnzahlFaelle, 10),
-    AnzahlFaelleSum: parseInt(row.AnzahlFaelleSum, 10),
-    AnzahlFaelle7Tage: parseInt(row.AnzahlFaelle7Tage, 10),
-    SiebenTageInzidenzFaelle: parseInt(row.SiebenTageInzidenzFaelle, 10),
-    AnzahlTotTaeglich: parseInt(row.AnzahlTotTaeglich, 10),
-    AnzahlTotSum: parseInt(row.AnzahlTotSum, 10),
-    AnzahlGeheiltTaeglich: parseInt(row.AnzahlGeheiltTaeglich, 10),
-    AnzahlGeheiltSum: parseInt(row.AnzahlGeheiltSum, 10),
-  }));
+  const timeline = new Ape(await neatCsv(text, { separator: ';' }));
+  timeline
+    .mapValue('BundeslandID', valueParseInt)
+    .mapValue('AnzEinwohner', valueParseInt)
+    .mapValue('AnzahlFaelle', valueParseInt)
+    .mapValue('AnzahlFaelleSum', valueParseInt)
+    .mapValue('AnzahlFaelle7Tage', valueParseInt)
+    .mapValue('SiebenTageInzidenzFaelle', valueParseInt)
+    .mapValue('AnzahlTotTaeglich', valueParseInt)
+    .mapValue('AnzahlTotSum', valueParseInt)
+    .mapValue('AnzahlGeheiltTaeglich', valueParseInt)
+    .mapValue('AnzahlGeheiltSum', valueParseInt);
+  return timeline.process();
 }
 
 async function getTestsAndHospitals() {
@@ -150,9 +170,10 @@ module.exports = async function () {
       row.FZICUTotal = foundTestRow.FZICUTotal;
       row.FZICUPercent = foundTestRow.FZICUPercent;
     }
-    const foundVaccinationRow = impfungen[rowDate]
-      ? impfungen[rowDate][row.BundeslandID]
-      : undefined;
+    const foundVaccinationRow = impfungen.findByIndex({
+      DatumYYYYMMDD: rowDate,
+      BundeslandID: row.BundeslandID,
+    });
     if (foundVaccinationRow) {
       row.TeilgeimpfteTaeglich = foundVaccinationRow.TeilgeimpfteTaeglich;
       row.VollimmunisierteTaeglich =

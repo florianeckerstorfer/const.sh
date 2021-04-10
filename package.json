@@ -25,5 +25,8 @@
     "postcss": "^8.2.9",
     "postcss-import": "^14.0.1",
     "serve-handler": "^6.1.3"
+  },
+  "dependencies": {
+    "@fec/ape": "^1.0.0"
   }
 }
