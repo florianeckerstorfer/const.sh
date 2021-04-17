@@ -13,21 +13,24 @@ styles:
 ---
 {% set defaultProvince = 10 %}
 {% set stats = [ 
-  { id: 'SiebenTageInzidenzFaelle', name: '7 Tage Inzidenz', higherIsBetter: false, isPercent: false },
-  { id: 'AnzahlFaelle', name: 'Fälle', higherIsBetter: false, isPercent: false },
-  { id: 'AnzahlTotTaeglich', name: 'Todesfälle', higherIsBetter: false, isPercent: false },
-  { id: 'AnzahlGeheiltTaeglich', name: 'Genesene', higherIsBetter: true, isPercent: false },
-  { id: 'Test', name: 'Tests', higherIsBetter: true, isPercent: false },
-  { id: 'FZHosp', name: 'Normalstation', description: 'Belegte Betten', higherIsBetter: false, isPercent: false },
-  { id: 'FZICU', name: 'Intensivstation', description: 'Belegte Betten', higherIsBetter: false, isPercent: false },
-  { id: 'TeilgeimpfteTaeglich', name: '1. Impfdosis', higherIsBetter: true, isPercent: false },
-  { id: 'VollimmunisierteTaeglich', name: '2. Impfdosis', higherIsBetter: true, isPercent: false }
+{ id: 'SiebenTageInzidenzFaelle', name: '7 day incidence', higherIsBetter: false, isPercent: false },
+{ id: 'AnzahlFaelle', name: 'Cases', higherIsBetter: false, isPercent: false },
+{ id: 'AnzahlTotTaeglich', name: 'Deaths', higherIsBetter: false, isPercent: false },
+{ id: 'AnzahlGeheiltTaeglich', name: 'Recoveries', higherIsBetter: true, isPercent: false },
+{ id: 'Test', name: 'Tests', higherIsBetter: true, isPercent: false },
+{ id: 'FZHosp', name: 'Hospitalisations', description: 'Occupied beds', higherIsBetter: false, isPercent: false },
+{ id: 'FZICU', name: 'Cases in ICU', description: 'Occupied beds', higherIsBetter: false, isPercent: false },
+{ id: 'EingetrageneImpfungenTaeglich', name: 'Vaccinations', higherIsBetter: true, isPercent: false }
 ] %}
+
 <header class="header header--covid19-at">
-  <h1><strong>COVID19</strong> in <br>Österreich</h1>
+  <h1><strong>COVID19</strong> in Austria</h1>
+  <div class="meta">
+    Last updated on <em>{{ 'MMMM DD, YYYY' | currentDate }}</em> at <em>{{ 'HH:mm' | currentDate }}</em>
+  </div>
 </header>
 <main class="main main--covid19-at">
-  <h2>Tägliche Übersicht</h2>
+  <h2>Trends from last months</h2>
   <div class="covid19-table">
     <div class="covid19-table__select">
       <select id="select-7ti">
@@ -38,10 +41,10 @@ styles:
         {% endfor %}
       </select>
     </div>
-    <div class="covid19-table__header">Aktuell<br><span class="date">{{ dates.yesterday }}</span></div>
-    <div class="covid19-table__header">Tag davor<br><span class="date">{{ dates.beforeYesterday }}</span></div>
-    <div class="covid19-table__header">Vor einer Woche<br><span class="date">{{ dates.lastWeek }}</span></div>
-    <div class="covid19-table__header">Vor einem Monat<br><span class="date">{{ dates.lastMonth }}</span></div>
+    <div class="covid19-table__header">Current<br><span class="date">{{ dates.yesterday }}</span></div>
+    <div class="covid19-table__header">1 day ago<br><span class="date">{{ dates.beforeYesterday }}</span></div>
+    <div class="covid19-table__header">1 week ago<br><span class="date">{{ dates.lastWeek }}</span></div>
+    <div class="covid19-table__header">1 month ago<br><span class="date">{{ dates.lastMonth }}</span></div>
     {% for province in provinces %}
       {% for stat in stats %}
         {% set row = timeline | covid19AtRowByProvince(province.BundeslandID, dates) %}
@@ -69,5 +72,6 @@ styles:
         {% endfor %}
       {% endfor %}
   </div>
-  <p>Zuletzt aktualisiert am <em>{{ 'DD.MM.YYYY' | currentDate }}</em> um <em>{{ 'HH:mm' | currentDate }}</em>. Datenquellen: BMSGPK, <a href="https://www.data.gv.at/covid-19">Österreichisches COVID-19 Open Data Informationsportal</a>
+  
+  <p>Last updated on <em>{{ 'MMMM DD, YYYY' | currentDate }}</em> at <em>{{ 'HH:mm' | currentDate }}</em>. Sources: BMSGPK, <a href="https://www.data.gv.at/covid-19">Österreichisches COVID-19 Open Data Informationsportal</a>
 </main>

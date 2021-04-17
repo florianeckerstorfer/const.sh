@@ -1,18 +1,19 @@
 .header--covid19-at {
-  background: black;
-  color: white;
 }
 
 .header--covid19-at h1 {
   font-family: var(--body-font-family);
   font-weight: 200;
   line-height: 1;
-  text-align: center;
 }
 
 .header--covid19-at h1 strong {
   font-style: normal;
   font-weight: 700;
+}
+
+.header--covid19-at .meta {
+  text-align: center;
 }
 
 .main--covid19-at {

@@ -59,6 +59,17 @@ async function getVaccinationData() {
     );
   }
 
+  function calcDailyVaccinations({
+    EingetrageneImpfungen,
+    Datum,
+    BundeslandID,
+  }) {
+    return (
+      EingetrageneImpfungen -
+      findDayBeforeValue(data, Datum, BundeslandID, 'EingetrageneImpfungen', 0)
+    );
+  }
+
   return data
     .mapValue('Bevölkerung', valueParseInt)
     .mapValue('EingetrageneImpfungen', valueParseInt)
@@ -67,6 +78,7 @@ async function getVaccinationData() {
     .mapValue('TeilgeimpftePro100', valueParseInt)
     .mapValue('Vollimmunisierte', valueParseInt)
     .mapValue('VollimmunisiertePro100', valueParseInt)
+    .addValue('EingetrageneImpfungenTaeglich', calcDailyVaccinations)
     .addValue('TeilgeimpfteTaeglich', calcDailyPartlyVaccinated)
     .addValue('VollimmunisierteTaeglich', calcDailyFullyVaccinated);
 }
