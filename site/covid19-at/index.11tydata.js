@@ -160,11 +160,20 @@ module.exports = async function () {
     return !prev || thisDate.isAfter(prev) ? thisDate : prev;
   }, false);
 
+  const currentData = data.find((record) => {
+    return (
+      record.DatumYYYYMMDD === lastDay.format('YYYY-MM-DD') &&
+      record.BundeslandID === 10
+    );
+  });
+
+  console.log('currentData', currentData);
+
   const dates = {
     yesterday: lastDay.format('DD.MM.YYYY'),
     beforeYesterday: lastDay.subtract(1, 'day').format('DD.MM.YYYY'),
     lastWeek: lastDay.subtract(7, 'day').format('DD.MM.YYYY'),
     lastMonth: lastDay.subtract(30, 'day').format('DD.MM.YYYY'),
   };
-  return { timeline: data, testsAndHospitals, provinces, dates };
+  return { timeline: data, provinces, dates, currentData };
 };

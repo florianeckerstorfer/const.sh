@@ -101,3 +101,87 @@
 .covid19-table__value .minus {
   color: green;
 }
+
+.covid19-legend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.covid19-legend__item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.covid19-legend__item:first-child {
+  margin-left: 0;
+}
+
+.covid19-legend__item::before {
+  display: block;
+  content: ' ';
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+}
+
+.covid19-legend__item--vizcaya::before {
+  background-color: var(--vizcaya);
+}
+
+.covid19-legend__item--night-market::before {
+  background-color: var(--night-market);
+}
+
+.covid19-progress {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c5c5c5' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+  height: 32px;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.covid19-progress__bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 32px;
+}
+
+.covid19-progress__bar-label {
+  position: absolute;
+  content: '.';
+  top: 32px;
+  right: 0;
+  border-right: 3px solid #c5c5c5;
+  color: rgba(0, 0, 0, 0);
+  padding-right: 3px;
+  font-size: 0.85rem;
+  transition: color 250ms ease-out, border-right-color 250ms ease-out;
+}
+
+.covid19-progress__bar--vizcaya {
+  background: var(--vizcaya);
+}
+
+.covid19-progress__bar:hover .covid19-progress__bar-label {
+  color: var(--text-color);
+}
+
+.covid19-progress__bar--vizcaya:hover .covid19-progress__bar-label {
+  border-right-color: var(--vizcaya);
+  color: var(--vizcaya);
+}
+
+.covid19-progress__bar--night-market {
+  background: var(--night-market);
+}
+
+.covid19-progress__bar--night-market:hover .covid19-progress__bar-label {
+  border-right-color: var(--night-market);
+  color: var(--night-market);
+}
