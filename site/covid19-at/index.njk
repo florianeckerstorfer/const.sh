@@ -39,14 +39,18 @@ styles:
       Partly vaccinated
     </div>
   </div>
-  <div class="covid19-progress">
-    <div class="covid19-progress__bar covid19-progress__bar--vizcaya" style="width: {{ currentData.TeilgeimpftePro100 }}%;">
-      <div class="covid19-progress__bar-label">{{ currentData.TeilgeimpftePro100 }}%</div>
+  {% for provinceData in currentData %}
+    <div id="covid19-vacc-progress-{{ provinceData.BundeslandID }}" class="covid19-progress">
+      <div class="covid19-progress__bar covid19-progress__bar--vizcaya" style="width: {{ provinceData.TeilgeimpftePro100 }}%;">
+        <div class="covid19-progress__bar-label">{{ provinceData.TeilgeimpftePro100 }}%</div>
+      </div>
+      <div class="covid19-progress__bar covid19-progress__bar--night-market" style="width: {{ provinceData.VollimmunisiertePro100 }}%;">
+        <div class="covid19-progress__bar-label">{{ provinceData.VollimmunisiertePro100 }}%</div>
+      </div>
+      <div class="covid19-progress__label">{{ provinceData.Bundesland }}</div>
     </div>
-    <div class="covid19-progress__bar covid19-progress__bar--night-market" style="width: {{ currentData.VollimmunisiertePro100 }}%;">
-    <div class="covid19-progress__bar-label">{{ currentData.VollimmunisiertePro100 }}%</div>
-  </div>
-  </div>
+  {% endfor %}
+  <div id="covid19-vacc-progress-toggle" class="collapsed"><a href="#" >Show progress per province</a></div>
   <h2>Trends from last month</h2>
   <div class="covid19-table">
     <div class="covid19-table__select">

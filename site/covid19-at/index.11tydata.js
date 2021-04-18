@@ -160,12 +160,15 @@ module.exports = async function () {
     return !prev || thisDate.isAfter(prev) ? thisDate : prev;
   }, false);
 
-  const currentData = data.find((record) => {
-    return (
-      record.DatumYYYYMMDD === lastDay.format('YYYY-MM-DD') &&
-      record.BundeslandID === 10
-    );
-  });
+  const currentData = data
+    .filter((record) => record.DatumYYYYMMDD === lastDay.format('YYYY-MM-DD'))
+    .sort((a, b) => b.BundeslandID - a.BundeslandID)
+    .map((record) => {
+      if (record.BundeslandID === 10) {
+        return { ...record, Bundesland: 'Österreich' };
+      }
+      return record;
+    });
 
   const dates = {
     yesterday: lastDay.format('DD.MM.YYYY'),

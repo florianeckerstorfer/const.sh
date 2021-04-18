@@ -15,6 +15,29 @@ async function main() {
       }
     });
   });
+
+  const vaccProgressToggle = document.querySelector(
+    '#covid19-vacc-progress-toggle'
+  );
+  vaccProgressToggle.querySelector('a').addEventListener('click', (event) => {
+    event.preventDefault();
+    const bars = document.querySelectorAll('.covid19-progress');
+    if (vaccProgressToggle.classList.contains('collapsed')) {
+      vaccProgressToggle.classList.add('expanded');
+      vaccProgressToggle.classList.remove('collapsed');
+      bars.forEach((bar) => {
+        bar.style.display = 'block';
+      });
+    } else {
+      vaccProgressToggle.classList.remove('expanded');
+      vaccProgressToggle.classList.add('collapsed');
+      bars.forEach((bar) => {
+        if (!bar.id.match(/-10/)) {
+          bar.style.display = 'none';
+        }
+      });
+    }
+  });
 }
 
 window.onload = main;
