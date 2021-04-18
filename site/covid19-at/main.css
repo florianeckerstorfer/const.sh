@@ -155,10 +155,9 @@
 .covid19-progress__bar-label {
   position: absolute;
   content: '.';
-  top: 32px;
+  bottom: 0;
   right: 0;
-  border-right: 3px solid #c5c5c5;
-  color: rgba(0, 0, 0, 0);
+  color: white;
   padding-right: 3px;
   font-size: 0.85rem;
   transition: color 250ms ease-out, border-right-color 250ms ease-out;
@@ -168,20 +167,6 @@
   background: var(--vizcaya);
 }
 
-.covid19-progress__bar:hover .covid19-progress__bar-label {
-  color: var(--text-color);
-}
-
-.covid19-progress__bar--vizcaya:hover .covid19-progress__bar-label {
-  border-right-color: var(--vizcaya);
-  color: var(--vizcaya);
-}
-
 .covid19-progress__bar--night-market {
   background: var(--night-market);
-}
-
-.covid19-progress__bar--night-market:hover .covid19-progress__bar-label {
-  border-right-color: var(--night-market);
-  color: var(--night-market);
 }
