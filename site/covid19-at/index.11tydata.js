@@ -177,5 +177,34 @@ module.exports = async function () {
     lastMonth: lastDay.subtract(30, 'day').format('DD.MM.YYYY'),
   };
 
-  return { timeline: data, provinces, dates, currentData };
+  const incidenceChartTmp = data
+    .filter(
+      (record) =>
+        record.BundeslandID === 10 &&
+        dayjs(record.DatumYYYYMMDD).isAfter(lastDay.subtract(30, 'days'))
+    )
+    .sort((a, b) => (a.Datum.isAfter(b.Datum) ? 1 : -1));
+  const maxIncidence = incidenceChartTmp.reduce((prev, current) => {
+    return current.SiebenTageInzidenzFaelle > prev
+      ? current.SiebenTageInzidenzFaelle
+      : prev;
+  }, 0);
+  const incidenceChart = incidenceChartTmp.map((record, index) => {
+    const x = (731 / 29) * index;
+    const y = 128 - (128 / maxIncidence) * record.SiebenTageInzidenzFaelle + 5;
+    const coord = `${index === 0 ? 'M' : 'L'}${x},${y}`;
+    return {
+      DatumYYYYMMDD: record.DatumYYYYMMDD,
+      BundeslandID: record.BundeslandID,
+      SiebenTageInzidenzFaelle: record.SiebenTageInzidenzFaelle,
+      x,
+      y,
+      coord,
+      showLabel: !(index % 2),
+    };
+  });
+
+  console.log('incidenceChart', incidenceChart);
+
+  return { timeline: data, provinces, dates, currentData, incidenceChart };
 };

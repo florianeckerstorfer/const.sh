@@ -51,6 +51,33 @@ styles:
     </div>
   {% endfor %}
   <div id="covid19-vacc-progress-toggle" class="collapsed"><a href="#" >Show progress per province</a></div>
+  
+  <h2>7-day incidence in the past month</h2>
+  
+  <div class="covid19-incidence-chart">
+    <svg width="100%" height="100%" viewBox="0 0 731 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+          <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+              <stop stop-color="#4B6277" stop-opacity="1" offset="0%"></stop>
+              <stop stop-color="#4B6277" stop-opacity="0.75" offset="100%"></stop>
+          </linearGradient>
+      </defs>
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g transform="translate(-0.000000, -0.000000)">
+              <path d="{% for point in incidenceChart %}{{ point.coord }} {% endfor %} L731,128 L0,128 L0,{{ incidenceChart[0].y }} Z" id="Path-Copy" fill="url(#linearGradient-1)"></path>
+              <path d="{% for point in incidenceChart %}{{ point.coord }} {% endfor %}" id="Path" stroke="#4B6277" stroke-width="3"></path>
+          </g>
+      </g>
+      <g>
+        {% for point in incidenceChart %}
+        {% if point.showLabel %}
+          <text class="point-value" x="{{ point.x + 2 }}" y="{{ point.y + 14 }}">{{ point.SiebenTageInzidenzFaelle }}</text>
+          {% endif %}
+        {% endfor %}
+        </g>
+    </svg>
+  </div>
+  
   <h2>Trends from last month</h2>
   <div class="covid19-table">
     <div class="covid19-table__select">
