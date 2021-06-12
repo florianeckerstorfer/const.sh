@@ -1,6 +1,6 @@
-const mathFilters = require('./src/filters/mathFilters');
-const stringFilters = require('./src/filters/stringFilters');
-const dateFilters = require('./src/filters/dateFilters');
+const mathFilters = require('./site/src/filters/mathFilters');
+const stringFilters = require('./site/src/filters/stringFilters');
+const dateFilters = require('./site/src/filters/dateFilters');
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addLayoutAlias('base', 'layout-base.njk');
@@ -14,11 +14,11 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy('site/**/*.jpeg');
   eleventyConfig.addPassthroughCopy('site/**/*.csv');
   eleventyConfig.addPassthroughCopy({
-    'src/fonts/**/*.eot': 'fonts',
-    'src/fonts/**/*.otf': 'fonts',
-    'src/fonts/**/*.ttf': 'fonts',
-    'src/fonts/**/*.woff': 'fonts',
-    'src/fonts/**/*.woff2': 'fonts',
+    'site/src/fonts/**/*.eot': 'fonts',
+    'site/src/fonts/**/*.otf': 'fonts',
+    'site/src/fonts/**/*.ttf': 'fonts',
+    'site/src/fonts/**/*.woff': 'fonts',
+    'site/src/fonts/**/*.woff2': 'fonts',
   });
 
   eleventyConfig.addFilter('round', mathFilters.round);
@@ -34,7 +34,7 @@ module.exports = function (eleventyConfig) {
     dir: {
       input: 'site',
       data: 'data',
-      includes: '../src/includes',
+      includes: 'src/includes',
       output: 'dist',
     },
   };

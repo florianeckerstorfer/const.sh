@@ -4,7 +4,6 @@
 }
 
 .header--index {
-  background: var(--primary-color);
   font: 13px var(--monospace-font-family);
   color: var(--primary-contrast-color);
   display: flex;

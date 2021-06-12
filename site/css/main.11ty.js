@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
-const generateCssHash = require('../../src/lib/generateCssHash');
+const generateCssHash = require('../src/lib/generateCssHash');
 
 module.exports = class {
   async data() {
-    const cssDir = path.join(__dirname, '..', '..', 'src', 'css');
+    const cssDir = path.join(__dirname, '..', 'src', 'css');
     const rawFilepath = path.join(cssDir, 'main.css');
     const hash = generateCssHash(cssDir);
 
