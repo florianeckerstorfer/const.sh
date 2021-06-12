@@ -1,6 +1,6 @@
 ---
 title: const.sh
-structure: hmf
+structure: default
 ---
 <!doctype html>
 <html lang="en">
@@ -14,9 +14,10 @@ structure: hmf
       <link rel="stylesheet" href="{{ href }}">
     {% endfor %}
   </head>
-  <body>
+  <body class="{{ body_class_name }}">
     <div class="structure structure--{{ structure }}">
       {{ content | safe }}
+    
       <footer class="footer">
         <p>
           <small>

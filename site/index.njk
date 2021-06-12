@@ -1,32 +1,31 @@
 ---
 title: const.sh
 layout: base
-structure: hmsf-index
+body_class_name: index
+structure: index
 ---
-<header class="header header--index">
-  <h1 class="h1-cli">
-    <span class="h1-cli__computer">const.sh</span> 
-    <span class="h1-cli__seperator">❯</span> 
-    <span class="h1-cli__command">ls</span></h1>
-</header>
+<header class="header header--index"><pre aria-label="const.sh">
+                     _         _
+  ___ ___  _ __  ___| |_   ___| |__
+ / __/ _ \| '_ \/ __| __| / __| '_ \
+| (_| (_) | | | \__ \ |_ _\__ \ | | |
+ \___\___/|_| |_|___/\__(_)___/_| |_|
+</pre></header>
+
 <main class="main main--index">
-<ul class="ls-list">
-  {%- for post in collections.project -%}
-    <li><a href="{{ post.url }}">{{ post.url | removeTrailingSlash }}</a></li>
-  {%- endfor -%}
+  <ul class="ls-list">
+    <li><pre>┌────────────────────────────────┐
+│<a href="https://c19at.const.sh">c19at →</a>                         │
+│════════════════════════════════│
+│Explore Covid19 data from       │
+│Austria                         │
+└────────────────────────────────┘</pre></li>
+    <li><pre>┌────────────────────────────────┐
+│<a href="/emojicon">emojicon →</a>                      │
+│════════════════════════════════│
+│Translate emoji into image data │
+│URIs.                           │
+└────────────────────────────────┘</pre></li>
   </ul>
+
 </main>
-<aside class="sidebar">
-  <h2>Updates</h2>
-  <ul class="update-list">
-  {%- for post in collections.update | reverse -%}
-    <li class="update-list__item">
-      <h3 class="update-list__title">{{ post.data.title }}</h3>
-      {{ post.templateContent | safe }}
-      <div class="update-list__meta">
-        <span>{{ post.data.date | formatDate('MMM D, YYYY') }}</span>
-      </div>
-    </li>
-  {%- endfor -%}
-  </ul>
-</aside>

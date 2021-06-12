@@ -1,8 +1,5 @@
-const dayjs = require('dayjs');
-const covid19AtFilters = require('./src/filters/covid19AtFilters');
 const mathFilters = require('./src/filters/mathFilters');
 const stringFilters = require('./src/filters/stringFilters');
-const covid19AtShortcodes = require('./src/shortcodes/covid19AtShortcodes');
 const dateFilters = require('./src/filters/dateFilters');
 
 module.exports = function (eleventyConfig) {
@@ -23,15 +20,6 @@ module.exports = function (eleventyConfig) {
     'src/fonts/**/*.woff': 'fonts',
     'src/fonts/**/*.woff2': 'fonts',
   });
-
-  eleventyConfig.addFilter(
-    'covid19AtRowByProvince',
-    covid19AtFilters.covid19AtRowByProvince
-  );
-  eleventyConfig.addShortcode(
-    'covid19AtDiffBetweenValues',
-    covid19AtShortcodes.covid19AtDiffBetweenValues
-  );
 
   eleventyConfig.addFilter('round', mathFilters.round);
   eleventyConfig.addFilter('formatNumber', mathFilters.formatNumber);

@@ -1,6 +1,7 @@
 .footer {
   background: var(--secondary-color);
   color: var(--secondary-contrast-color);
+  font: 14px 'Victor Mono', monospace;
   grid-area: footer;
   padding: 0.5rem;
 }

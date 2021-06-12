@@ -1,10 +1,10 @@
 .main {
   grid-area: main;
-  padding: 0 2ch;
 }
 
 .main--index {
   background: var(--primary-color);
+  font: 14px var(--monospace-font-family);
   color: var(--primary-contrast-color);
 }
 

@@ -1,11 +1,14 @@
 .header {
   grid-area: header;
-  margin: 3rem 0;
+  margin: 2rem auto;
 }
 
 .header--index {
   background: var(--primary-color);
+  font: 13px var(--monospace-font-family);
   color: var(--primary-contrast-color);
+  display: flex;
+  justify-content: center;
   margin: 0;
 }
 
