@@ -13,16 +13,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - uses: microsoft/playwright-github-action@v1
       - run: mkdir -p ~/.aws
       - run: echo "[const.sh]" > ~/.aws/credentials
       - run: echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
       - run: echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
       - run: npm install
       - run: npm run build
-      #       - run: npm test
       - run: npm run deploy
-      - uses: actions/upload-artifact@v2
-        with:
-          name: test-results
-          path: test-results/test
